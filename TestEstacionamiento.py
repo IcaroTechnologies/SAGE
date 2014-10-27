@@ -18,7 +18,6 @@ class Test(unittest.TestCase):
                                         "Urb el placer, CC. Colinas del placer",
                                         "J-2992823",04241033434,"SAGE@usb.ve"))
 
-
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
