@@ -18,13 +18,13 @@ class Test(unittest.TestCase):
         pass
     
     def testParametros(self):
-        correo=["SAGE@USB.VE","SAGERESER@USB.VE"]
+        correo=["SAGE@USB.com","SAGERESER@USB.com"]
         telefono=["04143113333","04141234567"]
         self.assertTrue(Estacionamiento("Luis Perez", "Estacionamiento CCS",
                                         "Urb el placer, CC. Colinas del placer",
                                         telefono,correo,"J-2992823"))
     def testNombreDueno(self):
-        correo=["SAGE@USB.VE","SAGERESER@USB.VE"]
+        correo=["SAGE@USB.com","SAGERESER@USB.com"]
         telefono=["04143113333","04141234567"]
         try:
             self.assertTrue(Estacionamiento('ada3', "Estacionamiento CCS",
@@ -34,7 +34,7 @@ class Test(unittest.TestCase):
             print "El nombre del dueno debe existir y no puede contener numeros \n"
     
     def testNombreEstacionamiento(self):
-        correo=["SAGE@USB.VE","SAGERESER@USB.VE"]
+        correo=["SAGE@USB.com","SAGERESER@USB.com"]
         telefono=["04143113333","04141234567"]
         try:
             self.assertTrue(Estacionamiento('ada',"",
@@ -45,7 +45,7 @@ class Test(unittest.TestCase):
             
     
     def testDireccionEstacionamiento(self):
-        correo=["SAGE@USB.VE","SAGERESER@USB.VE"]
+        correo=["SAGE@USB.com","SAGERESER@USB.com"]
         telefono=["04143113333","04141234567"]
         try:
             self.assertTrue(Estacionamiento('Luis', "Estacionamiento CC Plaza",
@@ -55,32 +55,41 @@ class Test(unittest.TestCase):
             
     
     def testTelefono(self):
-        correo=["SAGE@USB.VE","SAGERESER@USB.VE"]
+        correo=["SAGE@USB.com","SAGERESER@USB.com"]
         telefono=["041431133334"]
         try:
             self.assertTrue(Estacionamiento('Luis', "Estacionamiento CC Plaza",
                                         "Urb el placer",telefono,correo,"J-2992823"))
         except Exception:
-            print "Telefono(s) con formato incorrecto \n",telefono
+            print "Telefono(s) con formato incorrecto \n"
             
     def testMaxNumeroTelefonos(self):
-        correo=["SAGE@USB.VE","SAGERESER@USB.VE"]
+        correo=["SAGE@USB.com","SAGERESER@USB.com"]
         telefono=["04143113333","04241022323","04241223453","04141111111"]
         try:
             self.assertTrue(Estacionamiento('Luis', "Estacionamiento CC Plaza",
                                         "Urb el placer",telefono,correo,"J-2992823"))
         except Exception:
-            print "El maximo numero de telefonos es 3 \n",telefono
+            print "El maximo numero de telefonos es 3 \n"
             
                 
     def testTelefonoconGuion(self):
-        correo=["SAGE@USB.VE","SAGERESER@USB.VE"]
+        correo=["SAGE@USB.com","SAGERESER@USB.com"]
         telefono=["0414-3113333",]
         try:
             self.assertTrue(Estacionamiento('Luis', "Estacionamiento CC Plaza",
                                         "Urb el placer",telefono,correo,"J-2992823"))
         except Exception:
-            print "El formato del telefono es invalido \n",telefono
+            print "El formato del telefono es invalido \n"
+            
+    def testCorreoElectronico(self):
+        correo=["adwa"]
+        telefono=["0414-3113333",]
+        try:
+            self.assertTrue(Estacionamiento('Luis', "Estacionamiento CC Plaza",
+                                        "Urb el placer",telefono,correo,"J-2992823"))
+        except Exception:
+            print "El formato del correo es invalido \n"
             
             
     

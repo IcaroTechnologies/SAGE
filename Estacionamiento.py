@@ -68,6 +68,21 @@ class Estacionamiento(object):
                 raise Exception('Telefono(s) con formato incorrecto')
             i+=1
         self._telefono = tlf
+        
+    @property
+    def correo(self):
+        return self._correo
+
+    
+    @correo.setter
+    def correo(self, correo):
+        i=0
+        while i<len(correo):
+            if (not match('^[0-9a-zA-Z-_]+@[0-9a-zA-Z]+\.com$',str(correo[i])) or
+                not (0 <=len(correo) <=2)):
+                raise Exception('Correo(s) con formato incorrecto')
+            i+=1
+        self._correo = correo
  
     def __str__(self):
         return ("Dueno: "+self.nombreDueno+
