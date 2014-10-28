@@ -6,6 +6,7 @@ Created on Oct 27, 2014
 
 @author: luis
 '''
+from re import search, match, findall
 
 class Estacionamiento(object):
 
@@ -27,19 +28,17 @@ class Estacionamiento(object):
 
     @nombreDueno.setter
     def nombreDueno(self, dueno):
-        if not dueno: 
-            raise Exception(u'El nombre del dueno debe existir')
+        if not dueno or (search('\d',dueno)): 
+            raise Exception('el nombre del dueno debe existir y no puede contener numeros')
         self._nombreDueno = dueno
-
-
-        
+ 
     def __str__(self):
         return ("Dueno: "+self.nombreDueno+
                 "\nEstacionamiento: "+self.nombreEst+
                "\nDireccion: "+self.direccionEst+
                "\nRIF: "+ self.rif+
                "\nTelefonos: "+self.imprimirInfo(self.telefono)+
-               "\nCorreos: "+self.imprimirInfo(self.correo))
+               "\nCorreos: "+self.imprimirInfo(self.correo)+"\n")
         
     def imprimirInfo(self,infoEstacionamiento):
         i=0
