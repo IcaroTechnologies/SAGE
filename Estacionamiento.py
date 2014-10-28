@@ -22,19 +22,25 @@ class Estacionamiento(object):
         self.correo=correo
         self.rif=rif
         
-    def imprimirInfo(self,info):
-        for i in info:
-            print info[i]
-            if i < len(info):
-                print " / "
-        
     def __str__(self):
-        print ("Dueño: ", self.nombreDueno, "\n",
-               "Estacionamiento: ",self.nombreEst,"\n",
-               "Dirección: ", self.direccionEst,"\n",
-               "RIF: ", self.rif, "\n",
-               "Telefonos: ", self.imprimirTelefono(self.telefono), "\n",
-               "Correos: ", self.imprimirCorreo(self.correo), "\n")
+        return ("Dueno: "+self.nombreDueno+
+                "\nEstacionamiento: "+self.nombreEst+
+               "\nDireccion: "+self.direccionEst+
+               "\nRIF: "+ self.rif+
+               "\nTelefonos: "+self.imprimirInfo(self.telefono)+
+               "\nCorreos: "+self.imprimirInfo(self.correo))
+        
+    def imprimirInfo(self,infoEstacionamiento):
+        i=0
+        informacion=""
+        while i<len(infoEstacionamiento):
+            informacion=informacion+infoEstacionamiento[i]
+            i+=1
+            if i < len(infoEstacionamiento):
+                informacion=informacion+" / "
+        return informacion
+        
+     
         
         
         
