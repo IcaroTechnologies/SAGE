@@ -20,7 +20,6 @@ class Test(unittest.TestCase):
     def testParametros(self):
         correo=["SAGE@USB.VE","SAGERESER@USB.VE"]
         telefono=["04143113333","04141234567"]
-        
         self.assertTrue(Estacionamiento("Luis Perez", "Estacionamiento CCS",
                                         "Urb el placer, CC. Colinas del placer",
                                         telefono,correo,"J-2992823"))
@@ -28,7 +27,7 @@ class Test(unittest.TestCase):
         correo=["SAGE@USB.VE","SAGERESER@USB.VE"]
         telefono=["04143113333","04141234567"]
         try:
-            self.assertEqual(Exception,Estacionamiento('ada3', "Estacionamiento CCS",
+            self.assertTrue(Estacionamiento('ada3', "Estacionamiento CCS",
                                         "Urb el placer, CC. Colinas del placer",
                                         telefono,correo,"J-2992823"))
         except Exception:
@@ -38,7 +37,7 @@ class Test(unittest.TestCase):
         correo=["SAGE@USB.VE","SAGERESER@USB.VE"]
         telefono=["04143113333","04141234567"]
         try:
-            self.assertEqual(Exception,Estacionamiento('ada3', "",
+            self.assertTrue(Estacionamiento('ada',"",
                                         "Urb el placer, CC. Colinas del placer",
                                         telefono,correo,"J-2992823"))
         except Exception:
@@ -49,10 +48,22 @@ class Test(unittest.TestCase):
         correo=["SAGE@USB.VE","SAGERESER@USB.VE"]
         telefono=["04143113333","04141234567"]
         try:
-            self.assertEqual(Exception,Estacionamiento('Luis', "Estacionamiento CC Plaza",
+            self.assertTrue(Estacionamiento('Luis', "Estacionamiento CC Plaza",
                                         "",telefono,correo,"J-2992823"))
         except Exception:
             print "Debe de existir una direccion asociada al estacionamiento \n"
+            
+    
+    def testTelefono(self):
+        correo=["SAGE@USB.VE","SAGERESER@USB.VE"]
+        telefono=["04143113333"]
+        try:
+            self.assertTrue(Estacionamiento('Luis', "Estacionamiento CC Plaza",
+                                        "Urb el placer",telefono,correo,"J-2992823"))
+        except Exception:
+            print "Telefono(s) con formato incorrecto \n",telefono
+            
+    
             
     
             

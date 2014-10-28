@@ -48,10 +48,25 @@ class Estacionamiento(object):
         return self._direccionEst
 
     @direccionEst.setter
-    def direccionEst(self, direccionEst):
-        if not direccionEst: 
+    def direccionEst(self, direccion):
+        if not direccion: 
             raise Exception('debe existir una direccion asociada al estacionamiento')
-        self._direccionEst = direccionEst
+        self._direccionEst = direccion
+        
+    @property
+    def telefono(self):
+        return self._telefono
+
+    @telefono.setter
+    def telefono(self, tlf):
+        i=0
+        while i<len(tlf):
+            if (not match('^0?4[12][46]-?[0-9]{7}$',str(tlf[i])) and
+                not match('^0?[24]12-?[0-9]{7}$',str(tlf[i]))):
+                
+                raise Exception('Telefono(s) con formato incorrecto')
+            i+=1
+        self._telefono = tlf
  
     def __str__(self):
         return ("Dueno: "+self.nombreDueno+
@@ -70,12 +85,5 @@ class Estacionamiento(object):
             if i < len(infoEstacionamiento):
                 informacion=informacion+" / "
         return informacion
-        
-     
-        
-        
-        
-           
-        
         
     
