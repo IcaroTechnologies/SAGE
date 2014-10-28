@@ -12,7 +12,7 @@ class Estacionamiento(object):
     
     max_correo=2
     max_telefono=3
-
+ 
     def __init__(self,nombreDueno, nombreEst, direccionEst,
                  telefono, correo, rif ):
         
@@ -24,7 +24,9 @@ class Estacionamiento(object):
         self.rif=rif
         
         print self
-        
+    
+    
+    #Validacion del nombre del dueño    
     @property
     def nombreDueno(self):
         return self._nombreDueno
@@ -34,7 +36,8 @@ class Estacionamiento(object):
         if not dueno or (search('\d',dueno)): 
             raise Exception('el nombre del dueno debe existir y no puede contener numeros')
         self._nombreDueno = dueno
-        
+       
+    #Validacion del nombre del estacionamiento 
     @property
     def nombreEst(self):
         return self._nombreEst
@@ -45,7 +48,7 @@ class Estacionamiento(object):
             raise Exception('el nombre del estacionamiento debe existir')
         self._nombreEst = estacionamiento
         
-            
+    #Validacion de la direccion del estacionamiento        
     @property
     def direccionEst(self):
         return self._direccionEst
@@ -55,7 +58,8 @@ class Estacionamiento(object):
         if not direccion: 
             raise Exception('debe existir una direccion asociada al estacionamiento')
         self._direccionEst = direccion
-        
+     
+    #Validacion de los telefonos   
     @property
     def telefono(self):
         return self._telefono
@@ -74,7 +78,8 @@ class Estacionamiento(object):
                     raise Exception('Telefono(s) con formato incorrecto')
                 i+=1
             self._telefono = tlf
-        
+    
+    #Validacion de los correos   
     @property
     def correo(self):
         return self._correo
@@ -91,7 +96,8 @@ class Estacionamiento(object):
                     raise Exception('Correo(s) con formato incorrecto')
                 i+=1
         self._correo = correo
-        
+    
+    #Validacion del RIF    
     @property
     def rif(self):
         return self._nombreDueno
@@ -109,7 +115,8 @@ class Estacionamiento(object):
                 "\nRIF: "+ self.rif+
                 "\nTelefonos: "+self.imprimirInfo(self.telefono)+
                 "\nCorreos: "+self.imprimirInfo(self.correo)+"\n")
-        
+    
+    #Funcion que imprime los correos y telefonos    
     def imprimirInfo(self,infoEstacionamiento):
         i=0
         informacion=""
