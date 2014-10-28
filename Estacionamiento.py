@@ -31,6 +31,16 @@ class Estacionamiento(object):
         if not dueno or (search('\d',dueno)): 
             raise Exception('el nombre del dueno debe existir y no puede contener numeros')
         self._nombreDueno = dueno
+        
+    @property
+    def nombreEst(self):
+        return self._nombreEst
+
+    @nombreEst.setter
+    def nombreEst(self, estacionamiento):
+        if not estacionamiento: 
+            raise Exception('el nombre del estacionamiento debe existir')
+        self._nombreEst = estacionamiento
  
     def __str__(self):
         return ("Dueno: "+self.nombreDueno+

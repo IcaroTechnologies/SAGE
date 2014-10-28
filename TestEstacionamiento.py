@@ -32,7 +32,19 @@ class Test(unittest.TestCase):
                                         "Urb el placer, CC. Colinas del placer",
                                         telefono,correo,"J-2992823"))
         except Exception:
-            print "El nombre del dueño debe existir y no puede contener numeros"
+            print "El nombre del dueno debe existir y no puede contener numeros \n"
+    
+    def testNombreEstacionamiento(self):
+        correo=["SAGE@USB.VE","SAGERESER@USB.VE"]
+        telefono=["04143113333","04141234567"]
+        try:
+            self.assertRaises(Exception,Estacionamiento('ada3', "",
+                                        "Urb el placer, CC. Colinas del placer",
+                                        telefono,correo,"J-2992823"))
+        except Exception:
+            print "El nombre del estacionamiento debe existir \n"
+            
+    
             
         
         
