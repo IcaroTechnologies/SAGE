@@ -62,7 +62,8 @@ class Estacionamiento(object):
         i=0
         while i<len(tlf):
             if (not match('^0?4[12][46]-?[0-9]{7}$',str(tlf[i])) and
-                not match('^0?[24]12-?[0-9]{7}$',str(tlf[i]))):
+                not match('^0?[24]12-?[0-9]{7}$',str(tlf[i])) or
+                not (0 <=len(tlf) <=3)):
                 
                 raise Exception('Telefono(s) con formato incorrecto')
             i+=1

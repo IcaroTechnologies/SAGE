@@ -56,12 +56,32 @@ class Test(unittest.TestCase):
     
     def testTelefono(self):
         correo=["SAGE@USB.VE","SAGERESER@USB.VE"]
-        telefono=["04143113333"]
+        telefono=["041431133334"]
         try:
             self.assertTrue(Estacionamiento('Luis', "Estacionamiento CC Plaza",
                                         "Urb el placer",telefono,correo,"J-2992823"))
         except Exception:
             print "Telefono(s) con formato incorrecto \n",telefono
+            
+    def testMaxNumeroTelefonos(self):
+        correo=["SAGE@USB.VE","SAGERESER@USB.VE"]
+        telefono=["04143113333","04241022323","04241223453","04141111111"]
+        try:
+            self.assertTrue(Estacionamiento('Luis', "Estacionamiento CC Plaza",
+                                        "Urb el placer",telefono,correo,"J-2992823"))
+        except Exception:
+            print "El maximo numero de telefonos es 3 \n",telefono
+            
+                
+    def testTelefonoconGuion(self):
+        correo=["SAGE@USB.VE","SAGERESER@USB.VE"]
+        telefono=["0414-3113333",]
+        try:
+            self.assertTrue(Estacionamiento('Luis', "Estacionamiento CC Plaza",
+                                        "Urb el placer",telefono,correo,"J-2992823"))
+        except Exception:
+            print "El formato del telefono es invalido \n",telefono
+            
             
     
             
