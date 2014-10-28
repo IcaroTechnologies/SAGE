@@ -10,7 +10,6 @@ Created on Oct 27, 2014
 import unittest
 from Estacionamiento import Estacionamiento
 
-
 class Test(unittest.TestCase):
 
 
@@ -72,10 +71,19 @@ class Test(unittest.TestCase):
         except Exception:
             print "El maximo numero de telefonos es 3 \n"
             
+    def testMinNumeroTelefonos(self):
+        correo=["SAGE@USB.com","SAGERESER@USB.com"]
+        telefono=[]
+        try:
+            self.assertTrue(Estacionamiento('Luis', "Estacionamiento CC Plaza",
+                                        "Urb el placer",telefono,correo,"J-2992823"))
+        except Exception:
+            print "Debe haber por lo menos un telefono asociado al estacionamiento"
+            
                 
     def testTelefonoconGuion(self):
         correo=["SAGE@USB.com","SAGERESER@USB.com"]
-        telefono=["0414-3113333",]
+        telefono=["0414-3113333"]
         try:
             self.assertTrue(Estacionamiento('Luis', "Estacionamiento CC Plaza",
                                         "Urb el placer",telefono,correo,"J-2992823"))
@@ -84,7 +92,7 @@ class Test(unittest.TestCase):
             
     def testCorreoElectronico(self):
         correo=["adwa"]
-        telefono=["0414-3113333",]
+        telefono=["0414-3113333"]
         try:
             self.assertTrue(Estacionamiento('Luis', "Estacionamiento CC Plaza",
                                         "Urb el placer",telefono,correo,"J-2992823"))
@@ -94,12 +102,22 @@ class Test(unittest.TestCase):
                 
     def testMaxCorreoElectronico(self):
         correo=["luis@gmail.com","a@usb.com","adaw@tet.com"]
-        telefono=["0414-3113333",]
+        telefono=["0414-3113333"]
         try:
             self.assertTrue(Estacionamiento('Luis', "Estacionamiento CC Plaza",
                                             "Urb el placer",telefono,correo,"J-2992823"))
         except Exception:
             print "El numero maximo de correos es 2 \n"
+            
+                    
+    def testMinCorreoElectronico(self):
+        correo=[]
+        telefono=["04243112023"]
+        try:
+            self.assertTrue(Estacionamiento('Luis', "Estacionamiento CC Plaza",
+                                            "Urb el placer",telefono,correo,"J-2992823"))
+        except Exception:
+            print "Debe existir por lo menos un correo asociado al estacionamiento"
             
     def testPresenciaRIF(self):
         correo=["SAGE@USB.com","SAGERESER@USB.com"]

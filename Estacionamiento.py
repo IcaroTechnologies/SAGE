@@ -9,6 +9,9 @@ Created on Oct 27, 2014
 from re import search, match
 
 class Estacionamiento(object):
+    
+    max_correo=2
+    max_telefono=3
 
     def __init__(self,nombreDueno, nombreEst, direccionEst,
                  telefono, correo, rif ):
@@ -19,6 +22,8 @@ class Estacionamiento(object):
         self.telefono=telefono
         self.correo=correo
         self.rif=rif
+        
+        print self
         
     @property
     def nombreDueno(self):
@@ -57,15 +62,18 @@ class Estacionamiento(object):
 
     @telefono.setter
     def telefono(self, tlf):
+        
         i=0
-        while i<len(tlf):
-            if (not match('^0?4[12][46]-?[0-9]{7}$',str(tlf[i])) and
-                not match('^0?[24]12-?[0-9]{7}$',str(tlf[i])) or
-                not (0 <=len(tlf) <=3)):
+        if len(tlf)<1 or len(tlf)>3:
+            raise Exception('Deben haber entre 1 y 3 telefonos asociados al estacionamiento')
+        else:
+            while i<len(tlf):
+                if (not match('^0?4[12][46]-?[0-9]{7}$',str(tlf[i])) and
+                    not match('^0?[24]12-?[0-9]{7}$',str(tlf[i]))):
                 
-                raise Exception('Telefono(s) con formato incorrecto')
-            i+=1
-        self._telefono = tlf
+                    raise Exception('Telefono(s) con formato incorrecto')
+                i+=1
+            self._telefono = tlf
         
     @property
     def correo(self):
@@ -75,11 +83,13 @@ class Estacionamiento(object):
     @correo.setter
     def correo(self, correo):
         i=0
-        while i<len(correo):
-            if (not match('^[0-9a-zA-Z-_]+@[0-9a-zA-Z]+\.com$',str(correo[i])) or
-                not (0 <=len(correo) <=2)):
-                raise Exception('Correo(s) con formato incorrecto')
-            i+=1
+        if len(correo) <1 or len(correo)>2: 
+            raise Exception('Deben haber entre 1 y 2 correos asociados al estacionamiento')
+        else:
+            while i<len(correo):
+                if not match('^[0-9a-zA-Z-_]+@[0-9a-zA-Z]+\.com$',str(correo[i])):
+                    raise Exception('Correo(s) con formato incorrecto')
+                i+=1
         self._correo = correo
         
     @property
