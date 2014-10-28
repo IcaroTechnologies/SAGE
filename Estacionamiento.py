@@ -8,9 +8,6 @@ Created on Oct 27, 2014
 '''
 
 class Estacionamiento(object):
-    '''
-    classdocs
-    '''
 
     def __init__(self,nombreDueno, nombreEst, direccionEst,
                  telefono, correo, rif ):
@@ -21,6 +18,20 @@ class Estacionamiento(object):
         self.telefono=telefono
         self.correo=correo
         self.rif=rif
+        
+        print self
+        
+    @property
+    def nombreDueno(self):
+        return self._nombreDueno
+
+    @nombreDueno.setter
+    def nombreDueno(self, dueno):
+        if not dueno: 
+            raise Exception(u'El nombre del dueno debe existir')
+        self._nombreDueno = dueno
+
+
         
     def __str__(self):
         return ("Dueno: "+self.nombreDueno+
