@@ -97,10 +97,22 @@ class Test(unittest.TestCase):
         telefono=["0414-3113333",]
         try:
             self.assertTrue(Estacionamiento('Luis', "Estacionamiento CC Plaza",
-                                        "Urb el placer",telefono,correo,"J-2992823"))
+                                            "Urb el placer",telefono,correo,"J-2992823"))
         except Exception:
             print "El numero maximo de correos es 2 \n"
             
+    def testPresenciaRIF(self):
+        correo=["SAGE@USB.com","SAGERESER@USB.com"]
+        telefono=["04143113333","04141234567"]
+        try:
+            self.assertTrue(Estacionamiento("Luis Perez", "Estacionamiento CCS",
+                                           "Urb el placer, CC. Colinas del placer",
+                                            telefono,correo,""))
+            
+            
+        except Exception:
+            print "Debe haber un RIF asociado al estacionamiento \n"
+    
     
             
     

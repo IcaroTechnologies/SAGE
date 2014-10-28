@@ -6,7 +6,7 @@ Created on Oct 27, 2014
 
 @author: luis
 '''
-from re import search, match, findall
+from re import search, match
 
 class Estacionamiento(object):
 
@@ -19,8 +19,6 @@ class Estacionamiento(object):
         self.telefono=telefono
         self.correo=correo
         self.rif=rif
-        
-        print self
         
     @property
     def nombreDueno(self):
@@ -83,14 +81,24 @@ class Estacionamiento(object):
                 raise Exception('Correo(s) con formato incorrecto')
             i+=1
         self._correo = correo
+        
+    @property
+    def rif(self):
+        return self._nombreDueno
+
+    @rif.setter
+    def rif(self, rif):
+        if not rif: 
+            raise Exception('debe haber un RIF asociado al estacionamiento')
+        self._rif = rif
  
     def __str__(self):
         return ("Dueno: "+self.nombreDueno+
                 "\nEstacionamiento: "+self.nombreEst+
-               "\nDireccion: "+self.direccionEst+
-               "\nRIF: "+ self.rif+
-               "\nTelefonos: "+self.imprimirInfo(self.telefono)+
-               "\nCorreos: "+self.imprimirInfo(self.correo)+"\n")
+                "\nDireccion: "+self.direccionEst+
+                "\nRIF: "+ self.rif+
+                "\nTelefonos: "+self.imprimirInfo(self.telefono)+
+                "\nCorreos: "+self.imprimirInfo(self.correo)+"\n")
         
     def imprimirInfo(self,infoEstacionamiento):
         i=0
