@@ -91,6 +91,15 @@ class Test(unittest.TestCase):
         except Exception:
             print "El formato del correo es invalido \n"
             
+                
+    def testMaxCorreoElectronico(self):
+        correo=["luis@gmail.com","a@usb.com","adaw@tet.com"]
+        telefono=["0414-3113333",]
+        try:
+            self.assertTrue(Estacionamiento('Luis', "Estacionamiento CC Plaza",
+                                        "Urb el placer",telefono,correo,"J-2992823"))
+        except Exception:
+            print "El numero maximo de correos es 2 \n"
             
     
             
