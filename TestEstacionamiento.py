@@ -28,7 +28,7 @@ class Test(unittest.TestCase):
         correo=["SAGE@USB.VE","SAGERESER@USB.VE"]
         telefono=["04143113333","04141234567"]
         try:
-            self.assertRaises(Exception,Estacionamiento('ada3', "Estacionamiento CCS",
+            self.assertEqual(Exception,Estacionamiento('ada3', "Estacionamiento CCS",
                                         "Urb el placer, CC. Colinas del placer",
                                         telefono,correo,"J-2992823"))
         except Exception:
@@ -38,11 +38,21 @@ class Test(unittest.TestCase):
         correo=["SAGE@USB.VE","SAGERESER@USB.VE"]
         telefono=["04143113333","04141234567"]
         try:
-            self.assertRaises(Exception,Estacionamiento('ada3', "",
+            self.assertEqual(Exception,Estacionamiento('ada3', "",
                                         "Urb el placer, CC. Colinas del placer",
                                         telefono,correo,"J-2992823"))
         except Exception:
             print "El nombre del estacionamiento debe existir \n"
+            
+    
+    def testDireccionEstacionamiento(self):
+        correo=["SAGE@USB.VE","SAGERESER@USB.VE"]
+        telefono=["04143113333","04141234567"]
+        try:
+            self.assertEqual(Exception,Estacionamiento('Luis', "Estacionamiento CC Plaza",
+                                        "",telefono,correo,"J-2992823"))
+        except Exception:
+            print "Debe de existir una direccion asociada al estacionamiento \n"
             
     
             

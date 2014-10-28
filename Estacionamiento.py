@@ -41,6 +41,17 @@ class Estacionamiento(object):
         if not estacionamiento: 
             raise Exception('el nombre del estacionamiento debe existir')
         self._nombreEst = estacionamiento
+        
+            
+    @property
+    def direccionEst(self):
+        return self._direccionEst
+
+    @direccionEst.setter
+    def direccionEst(self, direccionEst):
+        if not direccionEst: 
+            raise Exception('debe existir una direccion asociada al estacionamiento')
+        self._direccionEst = direccionEst
  
     def __str__(self):
         return ("Dueno: "+self.nombreDueno+
