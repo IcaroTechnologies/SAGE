@@ -22,6 +22,8 @@ class Estacionamiento(object):
         self.telefono=telefono
         self.correo=correo
         self.rif=rif
+        
+        print self
     
     
     #Validacion del nombre del dueño    
