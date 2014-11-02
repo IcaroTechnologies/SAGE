@@ -6,8 +6,6 @@ Created on Oct 27, 2014
 
 @author: luis
 '''
-from re import search, match
-
 class Estacionamiento(object):
     
     max_correo=2
@@ -22,9 +20,7 @@ class Estacionamiento(object):
         self.telefono=telefono
         self.correo=correo
         self.rif=rif
-    
-    
-
+ 
     def __str__(self):
         return ("Dueno: "+self.nombreDueno+
                 "\nEstacionamiento: "+self.nombreEst+
@@ -45,3 +41,4 @@ class Estacionamiento(object):
         return informacion
         
     
+
