@@ -3,6 +3,7 @@ Created on Oct 29, 2014
 
 @author: nelson
 '''
+from re import search, match
 from Estacionamiento import Estacionamiento
 
 ListaEstacionamientos = []
@@ -12,7 +13,41 @@ def imprimiropcionionesMenu():
     print("Si desea agregar un nuevo estacionamiento marque uno (1).")
     print("Si desea ver los datos de TODOS estacionamiento marque dos (2)")
     print("Para salir del sistema presione cero (0)\n")
+    
+def validarTelefono(telefono):
+    
+    if (not match('^0?4[12][46]-?[0-9]{7}$',telefono) and
+        not match('^0?[24]12-?[0-9]{7}$',telefono)):
+            print('Numero incorrecto, por favor vuelva a agregar el telefono')
+            return False
+        
+    return True
 
+def validarCorreo(correo):
+    
+    
+    
+     if not match('^[0-9a-zA-Z-_]+@[0-9a-zA-Z]+\.[0-9a-zA-Z]+$',correo):
+            print('Correo incorrecto, por favor vuelva a agregar el telefono')
+            return False
+        
+     return True
+
+def validarDueno(nombre):
+    
+    if not nombre or (search('\d',nombre)): 
+            print('el nombre del dueno debe existir y no puede contener numeros')
+            return False
+    return True
+
+def validarNombre(nombre):
+    if not nombre: 
+        print('El campo debe existir')
+        return False
+    return True
+    
+    
+        
 def obtenerTelefonos():
     
     i = 0
@@ -21,19 +56,23 @@ def obtenerTelefonos():
     
     while opcion == 1 and i < 3:
         entrada = input("Introduzca un n. de telefono (movil o local de caracas): ")
+        while not validarTelefono(entrada):
+            entrada = input("Introduzca un n. de telefono (movil o local de caracas): ")
+                
         if not(entrada in telefono):    
             telefono.append(entrada)
             i = i + 1
         else:
             print("\nNumero de telefono ya existente. Por favor introduzca un nuevo numero.")
+            
         if i < 3:
             opcion = int(input("Si desea agregar otro numero de telefono marque uno(1). "
                                + "De lo contrario marque cero (0): "))
             while opcion != 0 and opcion != 1:
                 print("Opcion invalida, vuelva a intentar.")
                 opcion = int(input("Si desea agregar otro numero de telefono marque uno(1). "
-                                   + "De lo contrario marque cero(0): "))
-            
+                                    + "De lo contrario marque cero(0): "))
+                
     return telefono
 
 def obtenerCorreo():
@@ -44,6 +83,9 @@ def obtenerCorreo():
     
     while opcion == 1 and i < 2:
         entrada = input("Intoduzca un correo electronico (Ej. sage@hotmail.com): ")
+        while not validarCorreo(entrada):
+            entrada = input("Intoduzca un correo electronico (Ej. sage@hotmail.com): ")
+        
         if not(entrada in correo):    
             correo.append(entrada)
             i = i + 1
@@ -57,6 +99,7 @@ def obtenerCorreo():
                 opcion = int(input("Si desea agregar otra direccion de correo electronico marque uno(1). "
                                    + "De lo contrario marque cero(0): "))
     return correo
+
             
 def imprimirEstacionamientos(ListaEstacionamientos):
     
@@ -66,13 +109,41 @@ def imprimirEstacionamientos(ListaEstacionamientos):
         print("\n**ESTACIONAMIENTOS REGISTRADOS**\n\n")
         for i in ListaEstacionamientos:
             print(i,"\n")
+            
+def obtenerDueno():
+
+    nombreDueno = input("Introduzca el nombre del dueno del estacionamiento: ")
+    print nombreDueno
+    while not validarDueno(nombreDueno):
+        nombreDueno = input("Introduzca el nombre del dueno del estacionamiento: ")    
+    return nombreDueno
+
+def obtenerRif():
+    
+    rif = input("Introduzca el rif de la empresa: ")  
+    while not validarNombre(rif):
+        rif = input("Introduzca el rif de la empresa: ")
+    return rif
+    
+def obtenerDireccion():
+
+    direccionEst = input("Indique la direccion del estacionamiento: ")   
+    while not validarNombre(direccionEst):
+        direccionEst = input("Indique la direccion del estacionamiento: ")  
+    return direccionEst
+    
+def obtenerNombreEstacionamiento():
+    nombreEst = input("Indique el nombre del estacionamineto: ")    
+    while not validarNombre(nombreEst):
+        nombreEst = input("Indique el nombre del estacionamineto: ") 
+    return nombreEst  
     
 def menu(ListaEstacionamientos):
     opcion = 1
     
     print("\nBienvenido al Sistema Automatizado de Gestion de Estacionamientos.\n") 
     while opcion != 0:
-        
+        print "edsded"
         imprimiropcionionesMenu()
         opcion = int(input("Introduzca el numero de su opcion: "))
         if opcion == 1:
@@ -81,19 +152,16 @@ def menu(ListaEstacionamientos):
                       + "porque se ha llegado al limite.\n")
             else:
                 print("\n**AGREGAR ESTACIONAMIENTO**\n")
-                nombreDueno = input("Introduzca el nombre del dueno del estacionamiento: ")
-                nombreEst = input("Indique el nombre del estacionamineto: ")             
-                direccionEst = input("Indique la direccion del estacionamiento: ")             
-                telefono = obtenerTelefonos() 
-                correo = obtenerCorreo()       
-                rif = input("Introduzca el rif de la empresa: ")
-                try:    
-                    empresa = Estacionamiento(nombreDueno, nombreEst, direccionEst,
-                                              telefono, correo, rif)
-                    ListaEstacionamientos.append(empresa)
-                except Exception:
-                    print("Introdujo uno o varios datos incorrectos.\n")
-                    
+                
+                nombreDueno = obtenerDueno()
+                nombreEst=obtenerNombreEstacionamiento()
+                direccionEst=obtenerDireccion()
+                telefono=obtenerTelefonos()
+                correo=obtenerCorreo()
+                rif=obtenerRif()
+                empresa = Estacionamiento(nombreDueno, nombreEst, direccionEst,
+                                          telefono, correo, rif)
+                ListaEstacionamientos.append(empresa)
         elif opcion == 2:
             imprimirEstacionamientos(ListaEstacionamientos)      
         elif opcion < 0 or opcion > 2:
