@@ -21,11 +21,6 @@ class Estacionamiento(object):
         self.telefono=telefono
         self.correo=correo
         self.rif=rif
-        self.horaApertura="NA"
-        self.horaClausura="NA"
-        self.horaAperturaReserva="NA"
-        self.horaClausuraReserva="NA"
-        self.tarifa="NA"
  
     def __str__(self):
         return ("Dueno: "+self.nombreDueno+
@@ -33,12 +28,7 @@ class Estacionamiento(object):
                 "\nDireccion: "+self.direccionEst+
                 "\nRIF: "+ self.rif+
                 "\nTelefonos: "+self.imprimirInfo(self.telefono)+
-                "\nCorreos: "+self.imprimirInfo(self.correo)+"\n"+
-                "}nTarifa: "+self.tarifa+
-                "}nHora de Apertura: "+self.horaApertura+
-                "}nHora de Clausura: "+self.horaClausura+
-                "}nHora de inicio de reservas: "+self.horaAperturaReserva+
-                "}nHora de cierre de reservas: "+self.horaClausuraReserva)
+                "\nCorreos: "+self.imprimirInfo(self.correo)+"\n")
     
     #Funcion que imprime los correos y telefonos    
     def imprimirInfo(self,infoEstacionamiento):
@@ -50,6 +40,32 @@ class Estacionamiento(object):
             if i < len(infoEstacionamiento):
                 informacion=informacion+" / "
         return informacion
+
+
+class EstacionamientoParametrizado(Estacionamiento):
+	"""docstring for EstacionamientoParametrizado"""
+	def __init__(self, capacidad, horaApertura, horaClausura,tarifa,horaAperturaReserva="NA",horaClausuraReserva="NA"):
+		self.capacidad = capacidad
+		self.horaApertura = horaApertura
+		self.horaClausura = horaClausura
+		self.tarifa = tarifa
+		self.horaAperturaReserva = horaAperturaReserva
+		self.horaClausuraReserva = horaClausuraReserva
+
+    def __str__(self):
+        return ("Dueno: "+self.nombreDueno+
+                "\nEstacionamiento: "+self.nombreEst+
+                "\nDireccion: "+self.direccionEst+
+                "\nRIF: "+ self.rif+
+                "\nTelefonos: "+self.imprimirInfo(self.telefono)+
+                "\nCorreos: "+self.imprimirInfo(self.correo)+"\n"+
+                "\nCapacidad del Estacionamiento: "+self.capacidad+
+                "\nTarifa: "+self.tarifa+
+                "\nHora de Apertura: "+self.horaApertura+
+                "\nHora de Clausura: "+self.horaClausura+
+                "\nHora de inicio de reservas: "+self.horaAperturaReserva+
+                "\nHora de cierre de reservas: "+self.horaClausuraReserva)
+		
         
 
     
