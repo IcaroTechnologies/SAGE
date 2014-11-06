@@ -4,14 +4,15 @@ Created on Oct 29, 2014
 @author: nelson
 '''
 from re import search, match
-from Estacionamiento import Estacionamiento
+from Estacionamiento import *
 
 ListaEstacionamientos = []
 
 def imprimiropcionionesMenu():
     print("\n---MENU PRINCIPAL---")
     print("Si desea agregar un nuevo estacionamiento marque uno (1).")
-    print("Si desea ver los datos de TODOS estacionamiento marque dos (2)")
+    print("Si desea agregar un nuevo estacionamiento parametrizado marque uno (2).")
+    print("Si desea ver los datos de TODOS estacionamiento marque dos (3)")
     print("Para salir del sistema presione cero (0)\n")
     
 def validarTelefono(telefono):
@@ -44,7 +45,19 @@ def validarNombre(nombre):
         return False
     return True
     
-    
+def validarCantidad(Capacidad):
+    if not Capacidad or Capacidad <=0: 
+        print('El campo debe existir y la capacidad tiene que ser mayor a cero')
+        return False
+    return True
+
+def validarHora(Hora):
+    if not Capacidad or Capacidad <=0: 
+        print('El campo debe existir y la capacidad tiene que ser mayor a cero')
+        return False
+    return True
+
+
         
 def obtenerTelefonos():
     
@@ -134,7 +147,43 @@ def obtenerNombreEstacionamiento():
     while not validarNombre(nombreEst):
         nombreEst = str(raw_input("Indique el nombre del estacionamiento: "))
     return nombreEst  
+
+def obtenerCapacidad():
+    Capacidad = int(raw_input("Indique la capacidad del estacionamiento: "))    
+    while not validarCantidad(Capacidad):
+        Capacidad = int(raw_input("Indique la capacidad del estacionamiento: "))
+    return Capacidad  
+
+def obtenerHoraApertura():
+    Hora = str(raw_input("Indique la Hora de Apertura del estacionamiento en el siguiente formato '(hh:mm)':  "))    
+    #while not validarHora(Hora):
+    #    Hora = str(raw_input("Indique la Hora de Apertura del estacionamiento en el siguiente formato '(hh:mm)':  "))
+    return Hora
+
+def obtenerHoraClausura():
+    Hora = str(raw_input("Indique la Hora de Apertura del estacionamiento en el siguiente formato '(hh:mm)':  "))    
+    #while not validarHora(Hora):
+    #    Hora = str(raw_input("Indique la Hora de Apertura del estacionamiento en el siguiente formato '(hh:mm)':  "))
+    return Hora  	  	
     
+def obtenerTarifa():
+    Tarifa = str(raw_input("Indique la Tarifa del estacionamiento en BsF:  "))    
+    #while not validarTarifa(Tarifa):
+    #    Tarifa = str(raw_input("Indique la Tarifa de Apertura del estacionamiento en el siguiente formato '(hh:mm)':  "))
+    return Tarifa  	
+
+def obtenerHoraAperturaReserva():
+    HoraAperturaReserva = str(raw_input("Indique la Hora de Apertura de la Reserva del estacionamiento en el siguiente formato '(hh:mm)':  "))    
+    #while not validarHoraAperturaReserva(HoraAperturaReserva):
+    #    HoraAperturaReserva = str(raw_input("Indique la HoraAperturaReserva de Apertura del estacionamiento en el siguiente formato '(hh:mm)':  "))
+    return HoraAperturaReserva  
+
+def obtenerHoraClausuraReserva():			
+    HoraClausuraReserva = str(raw_input("Indique la Hora de Clausura de la Reserva del estacionamiento en el siguiente formato '(hh:mm)':  "))    
+    #while not validarHoraClausuraReserva(HoraClausuraReserva):
+    #    HoraClausuraReserva = str(raw_input("Indique la HoraClausuraReserva de Apertura del estacionamiento en el siguiente formato '(hh:mm)':  "))
+    return HoraClausuraReserva  
+
 def menu(ListaEstacionamientos):
     opcion = 1
     ListaEstacionamientos=[]
@@ -159,9 +208,37 @@ def menu(ListaEstacionamientos):
                                           telefono, correo, rif)
                 print empresa
                 ListaEstacionamientos.append(empresa)
+
         elif opcion == 2:
+            if len(ListaEstacionamientos) >= 5:
+                print("\nError, no se puede agregar un nuevo estacionamiento,"
+                      + "porque se ha llegado al limite.\n")
+            else:
+                print("\n**AGREGAR ESTACIONAMIENTO PARAMETRIZADO**\n")
+                
+                nombreDueno = obtenerDueno()
+                nombreEst=obtenerNombreEstacionamiento()
+                direccionEst=obtenerDireccion()
+                telefono=obtenerTelefonos()
+                correo=obtenerCorreo()
+                rif=obtenerRif()
+                capacidad = obtenerCapacidad()
+                horaApertura = obtenerHoraApertura()
+                horaClausura = obtenerHoraClausura()
+                tarifa = obtenerTarifa()
+                horaAperturaReserva = obtenerHoraAperturaReserva()
+                horaClausuraReserva = obtenerHoraClausuraReserva()
+
+                empresa = EstacionamientoParametrizado(nombreDueno, nombreEst, direccionEst, telefono, correo, rif,
+                										capacidad, horaApertura, horaClausura,tarifa,
+                										horaAperturaReserva,horaClausuraReserva)
+
+                print empresa
+                ListaEstacionamientos.append(empresa)
+
+        elif opcion == 3:
             imprimirEstacionamientos(ListaEstacionamientos)      
-        elif opcion < 0 or opcion > 2:
+        elif opcion < 0 or opcion > 3:
             print("Opcion incorrecta, introduzca la opcion nuevamente.\n")
     print("Gracias por usar el Sistema Automatizado de Gestion de Estacionamientos.")
     

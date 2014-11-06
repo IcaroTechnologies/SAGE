@@ -40,11 +40,14 @@ class Estacionamiento(object):
             if i < len(infoEstacionamiento):
                 informacion=informacion+" / "
         return informacion
-
+		
 
 class EstacionamientoParametrizado(Estacionamiento):
 	"""docstring for EstacionamientoParametrizado"""
-	def __init__(self, capacidad, horaApertura, horaClausura,tarifa,horaAperturaReserva="NA",horaClausuraReserva="NA"):
+	def __init__(self,nombreDueno, nombreEst, direccionEst,telefono, correo, rif,
+				 capacidad, horaApertura, horaClausura,tarifa,horaAperturaReserva="NA",horaClausuraReserva="NA"):
+
+		super(EstacionamientoParametrizado, self).__init__(nombreDueno, nombreEst, direccionEst,telefono, correo, rif )
 		self.capacidad = capacidad
 		self.horaApertura = horaApertura
 		self.horaClausura = horaClausura
@@ -52,19 +55,19 @@ class EstacionamientoParametrizado(Estacionamiento):
 		self.horaAperturaReserva = horaAperturaReserva
 		self.horaClausuraReserva = horaClausuraReserva
 
-    def __str__(self):
-        return ("Dueno: "+self.nombreDueno+
-                "\nEstacionamiento: "+self.nombreEst+
-                "\nDireccion: "+self.direccionEst+
-                "\nRIF: "+ self.rif+
-                "\nTelefonos: "+self.imprimirInfo(self.telefono)+
-                "\nCorreos: "+self.imprimirInfo(self.correo)+"\n"+
-                "\nCapacidad del Estacionamiento: "+self.capacidad+
-                "\nTarifa: "+self.tarifa+
-                "\nHora de Apertura: "+self.horaApertura+
-                "\nHora de Clausura: "+self.horaClausura+
-                "\nHora de inicio de reservas: "+self.horaAperturaReserva+
-                "\nHora de cierre de reservas: "+self.horaClausuraReserva)
+	def __str__(self):
+		return ("Dueno: "+self.nombreDueno+
+	            "\nEstacionamiento: "+self.nombreEst+
+	            "\nDireccion: "+self.direccionEst+
+	            "\nRIF: "+ self.rif+
+	            "\nTelefonos: "+self.imprimirInfo(self.telefono)+
+	            "\nCorreos: "+self.imprimirInfo(self.correo)+"\n"+
+	            "\nCapacidad del Estacionamiento: "+str(self.capacidad)+
+	            "\nTarifa: "+str(self.tarifa)+
+	            "\nHora de Apertura: "+self.horaApertura+
+	            "\nHora de Clausura: "+self.horaClausura+
+	            "\nHora de inicio de reservas: "+self.horaAperturaReserva+
+                "\nHora de cierre de reservas: "+str(self.horaClausuraReserva))
 		
         
 
