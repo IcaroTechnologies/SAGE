@@ -1,0 +1,100 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{%static "Sist_SAGE/bootstrap.min.css" %}">
+<link rel="stylesheet" type="text/css" href="{%static "Sist_SAGE/960.css" %}">
+
+<div class="container_12">
+      
+	<div class="grid_12" id="banner_azul">
+      <br><br>
+   	<h1> Bienvenido a SAGE </h1>
+   </div>
+	<div class="grid_4 push_4" id="formulario">
+
+		<form action="/crearEst/" method="post">
+	 	 {% csrf_token %}
+		  <div class="form-group" >	
+        <span class="red">*</span>   
+		  <label for="nombre">Nombre del dueño</label> 
+					<input type="text" class="form-control" name="nombreDueno">
+		  </div>
+        
+        <div class="form-group">
+        <span class="red">*</span>
+		  <label for="nombre">Nombre del estacionamiento</label>  <br> 
+					<input type="text" class="form-control" name="nombreEst"><br>
+		  </div>
+		  <div class="form-group">
+        <span class="red">*</span>
+		  <label for="nombre">Dirección del estacionamiento</label><br>  
+					<input type="text" class="form-control" name="direccionEst"><br>
+		  </div>
+		  <div class="form-group">
+		  <span class="red">*</span>
+		  <label for="nombre">Correo primario</label>  <br> 
+					<input type="email" class="form-control" name="correo_1"><br>
+		  </div>
+		  <div class="form-group">
+		  <label for="nombre">Correo secundario</label>  <br> 
+					<input type="email" class="form-control" name="correo_2"><br>
+		  </div>
+		  <div class="form-group">
+        <span class="red">*</span>
+		  <label for="nombre"> Telefono principal</label> <br>  
+					<input type="text"  class="form-control" name="telefono_1"><br>
+		  </div>
+		  <div class="form-group">
+		  <label for="nombre">Telefono adicional</label> <br>  
+					<input type="text" class="form-control" name="telefono_2"><br>
+		  </div>
+		  <div class="form-group">
+		  <label for="nombre">Telefono adicional</label>  <br> 
+					<input type="text" class="form-control" name="telefono_3"><br>
+		  </div>
+        <div class="form-group">
+        <span class="red">*</span>
+		  <label for="nombre">RIF</label>  <br> 
+					<input type="text" class="form-control" name="rif"><br>
+		  </div>
+		  <input type="submit" value="Agregar" class="btn btn-primary">
+		</form>
+	</div>
+</div>
+
+<style>
+
+#banner_azul {
+
+width:100%
+height: 200px;
+background-color: rgb(46, 140, 224);
+
+}
+
+
+.red {
+
+font-size: 20px;
+color: red;
+
+}
+
+h1 {
+
+position:relative;
+left: 75px;
+font-family: arial;
+
+}
+
+#formulario {
+
+border: 1px-solid black;
+position:relative;
+top: 100px;
+border: 1px solid black;
+padding: 30px;
+border-radius: 25px;
+
+}
+
+</style>
