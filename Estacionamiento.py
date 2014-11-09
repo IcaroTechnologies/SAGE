@@ -40,6 +40,12 @@ class Estacionamiento(object):
             if i < len(infoEstacionamiento):
                 informacion=informacion+" / "
         return informacion
+<<<<<<< HEAD
+=======
+    
+    def get_nombre(self):
+        return self.nombreEst
+>>>>>>> parametrizarEst
 		
 
 class EstacionamientoParametrizado(Estacionamiento):
@@ -64,9 +70,15 @@ class EstacionamientoParametrizado(Estacionamiento):
 	            "\nCorreos: "+self.imprimirInfo(self.correo)+"\n"+
 	            "\nCapacidad del Estacionamiento: "+str(self.capacidad)+
 	            "\nTarifa: "+str(self.tarifa)+
+<<<<<<< HEAD
 	            "\nHora de Apertura: "+self.horaApertura+
 	            "\nHora de Clausura: "+self.horaClausura+
 	            "\nHora de inicio de reservas: "+self.horaAperturaReserva+
+=======
+	            "\nHora de Apertura: "+str(self.horaApertura)+
+	            "\nHora de Clausura: "+str(self.horaClausura)+
+	            "\nHora de inicio de reservas: "+str(self.horaAperturaReserva)+
+>>>>>>> parametrizarEst
                 "\nHora de cierre de reservas: "+str(self.horaClausuraReserva))
 		
         
