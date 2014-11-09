@@ -4,15 +4,17 @@ Created on Oct 29, 2014
 @author: nelson
 '''
 from re import search, match
-from Estacionamiento import Estacionamiento
-from datetime import date
+import datetime
+from Estacionamiento import *
+from __builtin__ import False
 
 ListaEstacionamientos = []
 
 def imprimiropcionionesMenu():
     print("\n---MENU PRINCIPAL---")
     print("Si desea agregar un nuevo estacionamiento marque uno (1).")
-    print("Si desea ver los datos de TODOS estacionamiento marque dos (2)")
+    print("Si desea agregar un nuevo estacionamiento parametrizado marque uno (2).")
+    print("Si desea ver los datos de TODOS estacionamiento marque dos (3)")
     print("Para salir del sistema presione cero (0)\n")
     
 def validarTelefono(telefono):
@@ -45,15 +47,26 @@ def validarNombre(nombre):
         return False
     return True
     
+def validarCantidad(Capacidad):
+    if not Capacidad or Capacidad <=0: 
+        print('El campo debe existir y la capacidad tiene que ser mayor a cero')
+        return False
+    return True
+
+def validarDatoEntero(hora):
+    if not hora:
+        return False
+    return True
+
 def validarHora(hora):
-    print "VALIDAR"
-    
-def validarHorario(horaApertura,horaClausura):
-    print "VALIDAR"
-    
-def validarTarifa(tarifa):
-    print "VALIDAR"
-    
+    if hora > 23 or hora < 0:
+        return False
+    return True
+
+def validarMinuto(minuto):
+    if minuto > 60 or minuto < 0:
+        return False
+    return True
         
 def obtenerTelefonos():
     
@@ -75,10 +88,11 @@ def obtenerTelefonos():
         if i < 3:
             opcion = int(raw_input("Si desea agregar otro numero de telefono marque uno(1). "
                                + "De lo contrario marque cero (0): "))
-            while opcion != 0 and opcion != 1:
+            while  int(opcion != 0 and opcion != 1):
                 print("Opcion invalida, vuelva a intentar.")
                 opcion = int(raw_input("Si desea agregar otro numero de telefono marque uno(1). "
                                     + "De lo contrario marque cero(0): "))
+                print opcion
                 
     return telefono
 
@@ -101,7 +115,7 @@ def obtenerCorreo():
         if i < 2:
             opcion = int(raw_input("Si desea agregar otra direccion de correo electronico marque uno(1). "
                                + "De lo contrario marque cero(0): "))
-            while opcion != 0 and opcion != 1:
+            while  (opcion != 0 and opcion != 1):
                 print("Opcion invalida, vuelva a intentar.")
                 opcion = int(raw_input("Si desea agregar otra direccion de correo electronico marque uno(1). "
                                    + "De lo contrario marque cero(0): "))
@@ -143,7 +157,57 @@ def obtenerNombreEstacionamiento():
     while not validarNombre(nombreEst):
         nombreEst = str(raw_input("Indique el nombre del estacionamiento: "))
     return nombreEst  
+
+def obtenerCapacidad():
+    Capacidad = int(raw_input("Indique la capacidad del estacionamiento: "))    
+    while not validarCantidad(Capacidad):
+        Capacidad = int(raw_input("Indique la capacidad del estacionamiento: "))
+    return Capacidad  
+
+def obtenerHoraApertura():
+    Hora = int(raw_input("Indique la Hora de Apertura del estacionamiento en formato militar (sin minutos) :"))
+    Min =  int(raw_input("Indique los minutos :"))
+    while not (validarHora(Hora) or not validarMinuto(Min) or
+        not validarDatoEntero(Hora) or not validarDatoEntero(Min)):
+        Hora = int(raw_input("Indique la Hora de Apertura del estacionamiento en formato militar (sin minutos) :"))
+        Min =  int(raw_input("Indique los minutos :"))  
+    return datetime.timedelta(hours=Hora,minutes=Min)
+
+def obtenerHoraClausura():
+    Hora = int(raw_input("Indique la Hora de Clausura del estacionamiento en formato militar (sin minutos) :"))
+    Min =  int(raw_input("Indique los minutos :"))
+    while not (validarHora(Hora) or not validarMinuto(Min) or
+          not validarDatoEntero(Hora) or not validarDatoEntero(Min)):
+        Hora = int(raw_input("Indique la Hora de Clausura del estacionamiento en formato militar (sin minutos) :"))
+        Min =  int(raw_input("Indique los minutos :"))
+    return datetime.timedelta(hours=Hora,minutes=Min) 	  	
     
+def obtenerTarifa():
+    Tarifa = int(raw_input("Indique la Tarifa del estacionamiento en BsF:  "))    
+    while not validarDatoEntero(Tarifa):
+        Tarifa = int(raw_input("Indique la Tarifa de Apertura del estacionamiento en el siguiente formato '(hh:mm)':  "))
+    return Tarifa  	
+
+def obtenerHoraAperturaReserva():
+    Hora = int(raw_input("Indique la Hora de Apertura de reservas del estacionamiento en formato militar (sin minutos) :"))
+    Min =  int(raw_input("Indique los minutos  :"))
+    while not (validarHora(Hora) or not validarMinuto(Min) or
+        not validarDatoEntero(Hora) or not validarDatoEntero(Min)):
+        Hora = int(raw_input("Indique la Hora de Apertura de reservas del estacionamiento en formato militar (sin minutos) :"))
+        Min =  int(raw_input("Indique los minutos  :"))
+    return datetime.timedelta(hours=Hora,minutes=Min)     
+ 
+
+def obtenerHoraClausuraReserva():			
+    Hora = int(raw_input("Indique la Hora de Clausura de reservas del estacionamiento en formato militar (sin minutos) :"))
+    Min =  int(raw_input("Indique los minutos  :"))
+    while not (validarHora(Hora) or not validarMinuto(Min) or
+    not validarDatoEntero(Hora) or not validarDatoEntero(Min)):
+        Hora = int(raw_input("Indique la Hora de Clausura de reservas del estacionamiento en formato militar (sin minutos) :"))
+        Min =  int(raw_input("Indique los minutos  :"))
+    return datetime.timedelta(hours=Hora,minutes=Min)     
+ 
+
 def menu(ListaEstacionamientos):
     opcion = 1
     ListaEstacionamientos=[]
@@ -168,10 +232,53 @@ def menu(ListaEstacionamientos):
                                           telefono, correo, rif)
                 print empresa
                 ListaEstacionamientos.append(empresa)
+
         elif opcion == 2:
-            imprimirEstacionamientos(ListaEstacionamientos)      
-        elif opcion < 0 or opcion > 2:
+            if len(ListaEstacionamientos) >= 5:
+                print("\nError, no se puede agregar un nuevo estacionamiento,"
+                      + "porque se ha llegado al limite.\n")
+            else:
+                print("\n**AGREGAR ESTACIONAMIENTO PARAMETRIZADO**\n")
+                
+                nombreDueno = obtenerDueno()
+                nombreEst=obtenerNombreEstacionamiento()
+                direccionEst=obtenerDireccion()
+                telefono=obtenerTelefonos()
+                correo=obtenerCorreo()
+                rif=obtenerRif()
+                capacidad = obtenerCapacidad()
+                horaApertura = obtenerHoraApertura()
+                horaClausura = obtenerHoraClausura()
+                opcion1 = int(raw_input("Si desea agregar horario de reserva presione 1, de lo contrario 0 "))
+                while opcion1 !=1 and opcion1 !=0:
+                    opcion1 = int(raw_input("Opcion invalida, si desea agregar horario de reserva presione 1, de lo contrario 0 "))
+                if opcion1 == 1:
+                    tarifa = obtenerTarifa()
+                    horaAperturaReserva = obtenerHoraAperturaReserva()
+                    horaClausuraReserva = obtenerHoraClausuraReserva()
+                else: 
+                    tarifa ="NA"
+                    horaAperturaReserva="NA"
+                    horaClausuraReserva="NA"
+
+                empresa = EstacionamientoParametrizado(nombreDueno, nombreEst, direccionEst, telefono, correo, rif,
+                										capacidad, horaApertura, horaClausura,tarifa,
+                										horaAperturaReserva,horaClausuraReserva)
+
+             
+                ListaEstacionamientos.append(empresa)
+        
+        elif opcion == 3:
+            k=0
+            while k < len(ListaEstacionamientos):
+                nombre=ListaEstacionamientos[k].get_nombre()
+                print (k+1)," ",nombre
+                k+=1
+            opcion1 = int(raw_input("Seleccione un estacionamiento"))
+            print ListaEstacionamientos[opcion1-1]     
+        elif opcion < 0 or opcion > 3:
             print("Opcion incorrecta, introduzca la opcion nuevamente.\n")
     print("Gracias por usar el Sistema Automatizado de Gestion de Estacionamientos.")
     
 menu(ListaEstacionamientos)
+
