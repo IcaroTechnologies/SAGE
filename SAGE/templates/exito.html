@@ -13,10 +13,10 @@
      <h2> Ha registrado un estacionamiento exitosamente ! </h2>
    </div>
   <div class="grid_6 push_4" id="print">
-  <ul>
-	  <li> {{est|linebreaks}} <br></li>
+  <ul>  {% for field in est %}
+	  <li> {{field.value}} </li>
+          {% endfor %}
 	  <br>
-
   </ul>
   </div>
 
