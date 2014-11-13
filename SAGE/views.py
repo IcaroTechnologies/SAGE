@@ -45,6 +45,14 @@ def crearEst(request):
 
     return render(request,'agregar.html',args)
 
+def estacionamientos_registrados(request):
+    entradas = Estacionamiento.objects.all()
+    return render(request,'estacionamientos_registrados.html', {'estacionamientos_registrados' : entradas})
+
+def datos_estacionamiento(request,id):
+    estDatos=Estacionamiento.objects.get(pk=id)
+    return render (request,'datos_estacionamiento.html', {'datos' : estDatos})
+
 def reservar (request):
     args={}
     if request.method=='POST':
