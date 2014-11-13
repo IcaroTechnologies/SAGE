@@ -85,16 +85,17 @@ def verificarReserva(puestos, inicioReserva, finReserva):
         else:
             print "caso 2"
             i=0
-            print "puesto ",i," reservas:",len(puesto)
-            while i<len(puesto)-1:
+            while i<len(puesto):
                 primera_reserva=puesto[i]
-                segunda_reserva=puesto[i+1]
+                if i<len(puesto)-1:
+                    segunda_reserva=puesto[i+1]
+                    fin_bloque=segunda_reserva[0]
                 comienzo_bloque=primera_reserva[1]
-                fin_bloque=segunda_reserva[0]
                 if i==0:
                     if finReserva < primera_reserva[0]:
                         return True
-                elif i==len(puesto)-2:
+                elif i==len(puesto)-1:
+                    print inicioReserva, segunda_reserva[1]
                     if inicioReserva > segunda_reserva[1]:
                         return True
                 else:
