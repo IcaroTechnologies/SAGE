@@ -43,7 +43,6 @@ class Estacionamiento(object):
     
     def get_nombre(self):
         return self.nombreEst
-		  parametrizarEst
 
 
 class EstacionamientoParametrizado(Estacionamiento):

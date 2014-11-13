@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from views import home, agregar, menu, crearEst
+from views import home, agregar, menu, crearEst, cliente, solicitar, reservar
 
 urlpatterns = patterns('',
     # Examples:
@@ -12,4 +12,7 @@ urlpatterns = patterns('',
     url(r'^menu', menu ),
     url(r'^agregar',agregar),
     url(r'^crearEst',crearEst),
+    url(r'^cliente',cliente),
+    url(r'^solicitar',solicitar),
+    url(r'^reservar',reservar),
 )

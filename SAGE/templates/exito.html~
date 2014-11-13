@@ -9,14 +9,14 @@
    	<h1> Bienvenido a SAGE </h1>
    </div>
 
-   <div class="grid_12 push_2" id="tittle">
+   <div class="grid_12 push_3" id="tittle">
      <h2> Ha registrado un estacionamiento exitosamente ! </h2>
    </div>
   <div class="grid_6 push_4" id="print">
-  <ul>
-	  <li> {{est|linebreaks}} <br></li>
+  <ul>  {% for field in est %}
+	  <li> {{field.value}} </li>
+          {% endfor %}
 	  <br>
-
   </ul>
   </div>
 

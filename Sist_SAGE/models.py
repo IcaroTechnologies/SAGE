@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf_8 -*-
 
-from django import forms
+
 from django.core import validators
 from django.core.validators import EmailValidator, RegexValidator
-from django.core.exceptions import ValidationError
 from django.db import models
+
 
 class Estacionamiento (models.Model):
     nombreEst = models.CharField(max_length=50)
@@ -22,12 +22,31 @@ class Estacionamiento (models.Model):
     def __unicode__(self):              # __unicode__ on Python 2
         return (u"Dueño: "+self.nombreDueno+
                 "\nEstacionamiento: "+self.nombreEst+
-                "\nDireccion: "+self.direccionEst+
+                "\nDirección: "+self.direccionEst+
                 "\nRIF: "+ self.rif+
-                "\nTelefono principal: "+self.telefono_1+
-                "\nTelefono opcional #1: "+self.telefono_2+
-                "\nTelefono opcional #2: "+self.telefono_3+
+                "\nTeléfono principal: "+self.telefono_1+
+                "\nTeléfono opcional #1: "+self.telefono_2+
+                "\nTeléfono opcional #2: "+self.telefono_3+
                 "\nCorreo principal: "+self.correo_1+
                 "\nCorreo secundario: "+self.correo_2+
                 "\nRIF: "+self.rif)
+        
+        
+    
+
+class reserva (models.Model):
+    horaInicio = models.CharField(max_length=10, validators=[RegexValidator(regex='^(0?[1-9]|1[0-9]|2[0-3])$', message="Formato de hora incorrecto")])
+    minInicio = models.CharField(max_length=10, validators=[RegexValidator(regex='^[0-5][0-9]$', message="Formato de hora incorrecto")])
+    horaFin = models.CharField(max_length=10, validators=[RegexValidator(regex='^(0?[1-9]|1[0-9]|2[0-3])$', message="Formato de hora incorrecto")])
+    minFin = models.CharField(max_length=10, validators=[RegexValidator(regex='^[0-5][0-9]$', message="Formato de hora incorrecto")])
+
+
+    def __unicode__(self):
+        return "Hora de entrada -> "+ self.horaInicio+ ":"+ self.minInicio+"\nHora de salida ->"+self.horaFin+":"+self.minFin
+    
+    
+    
+    
+    
+    
     
