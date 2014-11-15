@@ -13,15 +13,15 @@
      <h2> Ha registrado un estacionamiento exitosamente ! </h2>
    </div>
   <div class="grid_6 push_4" id="print">
-  <ul>
-	  <li> {{est|linebreaks}} <br></li>
+  <ul>  {% for field in est %}
+	  <li> {{field.value}} </li>
+          {% endfor %}
 	  <br>
-
   </ul>
   </div>
 
    <div class="grid_4" id="button">
-      <a class="btn btn-primary" href="/menu/">Volver al menú inicial</a>
+      <a href="/menu/"><button type="button" class="btn btn-primary">Volver al menú inicial</button></a>
    </div>
 </div>
 
@@ -70,5 +70,7 @@ p {
 
 size: 14px;
 font-family:sans;
+
+}
 
 </style>

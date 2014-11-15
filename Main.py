@@ -168,9 +168,7 @@ def obtenerCapacidad():
     return Capacidad  
 
 
-  
-
-def obtenerHoraClausuraReserva():			
+def obtenerHoraApertura():			
 
     Hora = int(raw_input("Indique la Hora de Apertura del estacionamiento en formato militar (sin minutos) :"))
     Min =  int(raw_input("Indique los minutos :"))

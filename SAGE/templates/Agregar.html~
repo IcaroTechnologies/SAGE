@@ -70,6 +70,14 @@ background-color: rgb(46, 140, 224);
 
 }
 
+
+.red {
+
+font-size: 20px;
+color: red;
+
+}
+
 h1 {
 
 position:relative;

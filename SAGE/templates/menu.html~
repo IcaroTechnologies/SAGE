@@ -6,17 +6,22 @@
       
 	<div class="grid_12" id="banner_azul">
       <br><br>
-   	<h1> Bienvenido a SAGE </h1>
+   	<h1> SAGE </h1>
    </div>
 	<div class="grid_4 push_2" id="parking">
    	<a href="/agregar/"> <img src="{%static "Sist_SAGE/parking.png" %}" width="200px"></a>
       <h3 id="registrar"> Registrar estacionamiento </h3>
    </div>
 
-   <div class="grid_4 push_2" id="print">
-   	<img src="{%static "Sist_SAGE/print.jpg" %}" width="200px">
-      <h3 class="titulo1"> Imprimir información </h3>
+   <div id="print" class="grid_6 push_3" id="print">
+   	<a href="/estacionamientos_registrados/"> 
+      <img class="image" src="{%static "Sist_SAGE/print.jpg" %}" width="170px"></a>
+      	<h3 id="registrar"> Estacionamiento Registrados </h3>
    </div>
+	<div class="grid_4" id="button">
+		<br>
+			<a href="/"><button id ="volver" type="button" class="btn btn-primary">Volver al menú inicial</button></a>
+	  </div>
 
 </div>
 
@@ -33,6 +38,13 @@ background-color: rgb(46, 140, 224);
 #registrar {
 position:relative;
 right: 20px;
+
+}
+
+#button {
+position:relative;
+left : 400px;
+top: 150px;
 
 }
 
@@ -56,6 +68,21 @@ top: 150px;
 
 position:relative;
 top: 138px;
+left: 250px;
+
+}
+.image {
+
+position:relative;
+left: 50px;
+
+}
+
+#image {
+
+position:relative;
+
+left: 20px;
 
 }
 
