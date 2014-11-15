@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf_8 -*-
+from gi.overrides.keysyms import minutes
 
 
 '''
@@ -64,13 +65,17 @@ def reservar (request):
             minFinReserva=request.POST.get('minFin',default=0)
             inicioReserva =timedelta(hours=int(horaIniReserva),minutes=int(minIniReserva))
             finReserva =timedelta(hours=int(horaFinReserva),minutes=int(minFinReserva))
+            hora=timedelta(hours=0,minutes=59,seconds=59)
             puestos=estacionamiento_ficticio()
             hayPuesto=verificarReserva(puestos,inicioReserva,finReserva)
-            if hayPuesto:
-                form.save()
-                return render(request,'exitoreserva.html',{'res' : form})
-            else:
-                return render(request,'solicitar.html',{'sinres' : form})
+            if finReserva - inicioReserva > hora:
+                if hayPuesto:
+                    form.save()
+                    return render(request,'exitoreserva.html',{'res' : form})
+                else:
+                    return render(request,'solicitar.html',{'sinres' : form})
+            else: 
+                return render(request,'solicitar.html',{'minhor' : form})
                 
     else:
         form = ReservaForm()

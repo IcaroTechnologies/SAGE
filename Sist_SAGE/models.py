@@ -24,10 +24,10 @@ class Estacionamiento (models.Model):
     horaCierre = models.CharField(max_length=3,default="NA")
     minCierre = models.CharField(max_length=3,default="NA")
     tarifa = models.CharField(max_length=10, validators=[MinValueValidator(0)])
-    horaAperturaReserva = models.CharField(max_length=50,blank=True, validators=[RegexValidator(regex='^(0?[1-9]|1[0-9]|2[0-3])$', message="Formato de hora incorrecto, debe estar entre 0 y 23")])
-    minAperturaReserva = models.CharField(max_length=50,blank=True,validators=[RegexValidator(regex='^[0-5][0-9]$', message="Formato de hora incorrecto, debe estar entre 0 y 59")])
-    horaCierreReserva = models.CharField(max_length=50,blank=True, validators=[RegexValidator(regex='^(0?[1-9]|1[0-9]|2[0-3])$', message="Formato de hora incorrecto, debe estar entre 0 y 23")])
-    minCierreReserva = models.CharField(max_length=50,blank=True,validators=[RegexValidator(regex='^[0-5][0-9]$', message="Formato de hora incorrecto, debe estar entre 0 y 59")])
+    horaAperturaReserva = models.CharField(max_length=50,blank=True, validators=[RegexValidator(regex='^(0?[0-9]|1[0-9]|2[0-3])$', message="Formato de hora incorrecto, debe estar entre 0 y 23")])
+    minAperturaReserva = models.CharField(max_length=50,blank=True,validators=[RegexValidator(regex='^[0-5]?[0-9]$', message="Formato de hora incorrecto, debe estar entre 0 y 59")])
+    horaCierreReserva = models.CharField(max_length=50,blank=True, validators=[RegexValidator(regex='^(0?[0-9]|1[0-9]|2[0-3])$', message="Formato de hora incorrecto, debe estar entre 0 y 23")])
+    minCierreReserva = models.CharField(max_length=50,blank=True,validators=[RegexValidator(regex='^[0-5]?[0-9]$', message="Formato de hora incorrecto, debe estar entre 0 y 59")])
     
     def __unicode__(self):              # __unicode__ on Python 2
         return (u"Dueño: "+self.nombreDueno+
@@ -45,10 +45,10 @@ class Estacionamiento (models.Model):
     
 
 class reserva (models.Model):
-    horaInicio = models.CharField(max_length=10, validators=[RegexValidator(regex='^(0?[1-9]|1[0-9]|2[0-3])$', message="Formato de hora incorrecto, debe estar entre 0 y 23")])
-    minInicio = models.CharField(max_length=10, validators=[RegexValidator(regex='^[0-5][0-9]$', message="Formato de hora incorrecto, debe estar entre 0 y 59")])
-    horaFin = models.CharField(max_length=10, validators=[RegexValidator(regex='^(0?[1-9]|1[0-9]|2[0-3])$', message="Formato de hora incorrecto, debe estar entre 0 y 23")])
-    minFin = models.CharField(max_length=10, validators=[RegexValidator(regex='^[0-5][0-9]$', message="Formato de hora incorrecto, debe estar entre 0 y 59")])
+    horaInicio = models.CharField(max_length=10, validators=[RegexValidator(regex='^(0?[0-9]|1[0-9]|2[0-3])$', message="Formato de hora incorrecto, debe estar entre 0 y 23")])
+    minInicio = models.CharField(max_length=10, validators=[RegexValidator(regex='^[0-5]?[0-9]$', message="Formato de hora incorrecto, debe estar entre 0 y 59")])
+    horaFin = models.CharField(max_length=10, validators=[RegexValidator(regex='^(0?[0-9]|1[0-9]|2[0-3])$', message="Formato de hora incorrecto, debe estar entre 0 y 23")])
+    minFin = models.CharField(max_length=10, validators=[RegexValidator(regex='^[0-5]?[0-9]$', message="Formato de hora incorrecto, debe estar entre 0 y 59")])
 
 
     def __unicode__(self):
