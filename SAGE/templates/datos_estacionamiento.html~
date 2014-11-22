@@ -1,0 +1,85 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{%static "Sist_SAGE/bootstrap.min.css" %}">
+<link rel="stylesheet" type="text/css" href="{%static "Sist_SAGE/960.css" %}">
+
+<div class="container_12">
+
+   <div class="grid_12" id="banner_azul">
+      <br><br>
+      <h1> SAGE </h1>
+  </div>
+
+
+  <div class="grid_5 push_2">
+    <h4>
+    <br><br>
+    <b>Datos del Estacionamiento</b><br><br>
+    <b>Nombre del Estacionamiento:</b>
+    {{ datos.nombreEst }} <br>
+    <b>Nombre del Dueno:</b>
+    {{ datos.nombreDueno }} <br>
+    <b>Direccion:</b>
+    {{ datos.direccionEst }} <br>
+    <b>Correo Obligatorio:</b>
+    {{ datos.correo_1 }} <br>
+    <b>Correo Opcional:</b>
+    {{ datos.correo_2 }} <br>
+    <b>Telefono Obligatorio:</b>
+    {{ datos.telefono_1 }} <br>
+    <b>Telefono Opcional 1:</b>
+    {{ datos.telefono_2 }} <br>
+    <b>Telefono Opcional 2:</b>
+    {{ datos.telefono_3 }} <br>
+    <b>RIF:</b>
+    {{ datos.rif }} <br><br><br>
+
+    <b>Estacionamiento del estacionamiento</b><br><br>
+    <b>Puestos:</b>
+    {{ datos.puestos }} <br>
+    <b>Hora de Apertura:</b>
+    {{ datos.horaApertura }} <br>
+    <b>Hora de Cierre:</b>
+    {{ datos.horaCierre }} <br>
+    <b>Tarifa (Bs.F):</b>
+    {{ datos.tarifa }} <br>
+    <b>Hora Apertura de Reserva:</b>
+    {{ datos.horaAperturaReserva }} <br>
+    <b>Hora Cierre de Reserva:</b>
+    {{ datos.horaCierreReserva }} <br>
+    </h4>    
+
+   <div class="grid_5_push_4" id="button"><br>
+      <a class="btn btn-primary" href="/estacionamientos_registrados/">Regresar</a>
+   </div>
+          
+  </div>
+     
+  
+</div>
+
+
+
+
+</div>
+
+<style>
+
+#banner_azul {
+
+width:100%
+height: 200px;
+background-color: rgb(46, 140, 224);
+
+}
+
+#tittle {
+
+position:relative;
+top: 80px;
+right:30px;
+
+
+}
+
+
+</style>

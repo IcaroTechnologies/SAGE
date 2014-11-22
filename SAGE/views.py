@@ -1,19 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf_8 -*-
-from gi.overrides.keysyms import minutes
-
-
 '''
 Created on Nov 6, 2014
 
 @author: luis
 '''
-from Sist_SAGE.models import  Estacionamiento, reserva
-from django.core.exceptions import ValidationError
+from Sist_SAGE.models import  Estacionamiento, reserva 
 from Sist_SAGE.forms import EstacionamientoForm, ReservaForm
-from django.http import HttpResponse
-from django.template import Context
-from django.template.loader import get_template
 from django.shortcuts import render
 from datetime import timedelta
 
@@ -65,10 +58,9 @@ def reservar (request):
             minFinReserva=request.POST.get('minFin',default=0)
             inicioReserva =timedelta(hours=int(horaIniReserva),minutes=int(minIniReserva))
             finReserva =timedelta(hours=int(horaFinReserva),minutes=int(minFinReserva))
-            hora=timedelta(hours=0,minutes=59,seconds=59)
             puestos=estacionamiento_ficticio()
             hayPuesto=verificarReserva(puestos,inicioReserva,finReserva)
-            if finReserva - inicioReserva > hora:
+            if verificar_minimo_reserva(inicioReserva, finReserva):
                 if hayPuesto:
                     form.save()
                     return render(request,'exitoreserva.html',{'res' : form})
@@ -86,17 +78,14 @@ def reservar (request):
 def verificarReserva(puestos, inicioReserva, finReserva):
     for puesto in puestos:
         if len(puesto)==0:
-            print "caso 0"
             return True
         elif len(puesto)==1:
-            print "caso 1"
             reserva=puesto[0]
             inicio=reserva[0]
             fin=reserva[1]
             if (inicioReserva > fin) | (finReserva < inicio):
                 return True
         else:
-            print "caso 2"
             i=0
             while i<len(puesto):
                 primera_reserva=puesto[i]
@@ -132,3 +121,11 @@ def estacionamiento_ficticio():
     puestos=[puesto1,puesto2,puesto3,puesto4,puesto5,puesto6,puesto7,puesto8,puesto9]    
     return puestos
     
+
+def verificar_minimo_reserva(inicio,fin):
+    
+    hora=timedelta(hours=0,minutes=59,seconds=59)
+    if fin > inicio or fin==inicio:
+        return fin-inicio > hora
+    else:
+        return True

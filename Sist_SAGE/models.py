@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf_8 -*-
 
-
-from django.core import validators
 from django.core.validators import EmailValidator, RegexValidator,\
     MinValueValidator
 from django.db import models
+from django.core import validators
 
 
 class Estacionamiento (models.Model):
-    nombreEst = models.CharField(max_length=50)
+    solo_letras= RegexValidator(r'^[a-zA-Z\ñ]+$', 'Solo se permiten letras en este campo.')
+    nombreEst = models.CharField(max_length=50, validators=[solo_letras])
     nombreDueno = models.CharField(max_length=50)
     direccionEst = models.CharField(max_length=50)
     correo_1 = models.CharField(max_length=50, validators=[EmailValidator()])

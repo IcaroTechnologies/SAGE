@@ -1,0 +1,57 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{%static "Sist_SAGE/bootstrap.min.css" %}">
+<link rel="stylesheet" type="text/css" href="{%static "Sist_SAGE/960.css" %}">
+
+<div class="container_12">
+      
+	<div class="grid_12" id="banner_azul">
+      <br><br>
+   	<h1> Bienvenido a SAGE </h1>
+   </div>
+	<div class="grid_4 push_2" id="parking">
+   	<a href="/agregar/"> <img src="{%static "Sist_SAGE/reserve.jpg" %}" width="200px"></a>
+      <h3 id="solicitar"> Solicitar reserva </h3>
+   </div>
+
+</div>
+
+<style>
+
+#banner_azul {
+
+width:100%
+height: 200px;
+background-color: rgb(46, 140, 224);
+
+}
+
+#solicitar {
+position:relative;
+right: 20px;
+
+}
+
+h1 {
+
+position:relative;
+left: 75px;
+font-family: arial;
+
+}
+
+#parking {
+
+position:relative;
+top: 150px;
+
+
+}
+
+#print {
+
+position:relative;
+top: 138px;
+
+}
+
+</style>
