@@ -5,6 +5,7 @@ from django.core.validators import EmailValidator, RegexValidator,\
     MinValueValidator, MaxValueValidator
 from django.db import models
 from django.core import validators
+import decimal
 
 
 class Estacionamiento (models.Model):
@@ -64,46 +65,59 @@ class reserva (models.Model):
     
     def get_fin(self):
         return self.horaFin + ":"+ self.minFin
+    
+    def get_horaInicio(self):
+        return self.horaInicio
+    def get_minInicio(self):
+        return self.minInicio
+    def get_horaFin(self):
+        return self.horaFin
+    def get_minFin(self):
+        return self.minFin
+                   
+        
 
     def __unicode__(self):
         return "Hora de entrada -> "+ self.horaInicio+ ":"+ self.minInicio+"\nHora de salida ->"+self.horaFin+":"+self.minFin
     
     
 class pago (models.Model):
-    
-    solo_letras= RegexValidator(r'^[a-zA-Z\ñ]+$', 'Solo se permiten letras en este campo.')
+
+
+
+    solo_letras= RegexValidator(r'^[a-zA-Z\ñ]+ [a-zA-Z\ñ ]+$', 'Escriba su nombre y apellido, Solo se permiten letras en este campo.')
     formato_cedula = RegexValidator(r'^[0-9]{,8}$', 'Formato incorrecto de la cédula, solo escriba los digitos de la cedula sin espacios ni otros caracteres.')
     formato_tarjeta = RegexValidator(r'^[0-9]{16}$', 'Formato incorrecto, deben ser 16 dígitos sin espacios')
-    formato_ano = RegexValidator(r'^[0-9]{4}$', 'El año de expiración de la tarjeta debe ser mayor a la fecha actual')
+    formato_ano = RegexValidator(r'^(201[4-9]|20[2-9][0-9])$', 'El año de expiración de la tarjeta debe ser mayor a la fecha actual')
     formato_mes = RegexValidator(r'^(0?[1-9]|1[0-2])$', 'El mes de expiración debe estar entre 0 y 12')
     formato_codigo = RegexValidator(r'^[0-9]{3,4}$', 'El codigo de seguridad debe tener 3 o 4 dígitos')
     formato_tipo_tarjeta = RegexValidator(r'^(Visa|MasterCard|Express)$','Tipo de tarjeta incorrecto')
     
-    
+    codigoSeguridad = models.CharField(max_length=4,validators=[formato_codigo])
     nombre = models.CharField(max_length=50,validators=[solo_letras])
     cedula = models.CharField(max_length=10,validators=[formato_cedula])
     tipoTarjeta = models.CharField(max_length=10, validators=[formato_tipo_tarjeta])
     digitos = models.CharField(max_length=16,validators=[formato_tarjeta])
-    anoVencimiento = models.CharField(max_length=50,validators=[MinValueValidator(2014), formato_ano])
+    anoVencimiento = models.CharField(max_length=50, validators=[formato_ano])
     mesVencimiento = models.CharField(max_length=10,validators=[formato_mes])
-    codigoSeguridad = models.CharField(max_length=10,validators=[formato_codigo])
     codigoConfirmacion = models.CharField(max_length=18,blank=True)
-    inicio = models.CharField(max_length=10,blank=True, default="NA")
-    fin = models.CharField(max_length=10,blank=True, default="NA")
+    inicio = models.CharField(max_length=10,blank=True,default="NA")
+    fin = models.CharField(max_length=10,blank=True,default="NA")
+    monto = models.DecimalField(max_digits=6,blank=True, decimal_places=3, default=0)
+
+    def obtener_ultimos_4_digitos(self):
+        var = self.digitos
+        return "************"+var[12:]
+        
+    def obtener_iva(self):
+        return round(((14*self.monto)/100),3)
     
- 
+    def obtener_total(self):
+        return round(decimal.Decimal(self.obtener_iva()),3) + self.monto
+    
+    def obtener_total_decimal(self):
+        return round(decimal.Decimal(self.obtener_iva()) + self.monto,2)
     
 
-    
-    
-    
-    
-    
-    
-    
-      
-      
-
-    
     
     

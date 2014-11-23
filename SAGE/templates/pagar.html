@@ -28,7 +28,9 @@
 				{{ form.errors.tipoTarjeta }}
 		    	   <span class="red">*</span>
 			  		<label for="nombre">Tipo de tarjeta</label><br>  
-					<input type="text" class="form-control" name="tipoTarjeta"><br>
+					<input type="radio"  name="tipoTarjeta" value ="Visa"> Visa <br>
+					<input type="radio"  name="tipoTarjeta" value ="MasterCard"> MasterCard <br>
+					<input type="radio"  name="tipoTarjeta" value ="Xpress"> Express
 			  </div>
 			  <div class="form-group">
 			  {{ form.errors.digitos }}

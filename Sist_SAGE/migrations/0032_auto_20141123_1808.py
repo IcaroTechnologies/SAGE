@@ -1,0 +1,26 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
+from django.db import models, migrations
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('Sist_SAGE', '0031_pago_monto'),
+    ]
+
+    operations = [
+        migrations.AddField(
+            model_name='pago',
+            name='prueba',
+            field=models.OneToOneField(default=b'1', to='Sist_SAGE.reserva'),
+            preserve_default=True,
+        ),
+        migrations.AlterField(
+            model_name='pago',
+            name='monto',
+            field=models.DecimalField(default=0, max_digits=6, decimal_places=3, blank=True),
+            preserve_default=True,
+        ),
+    ]

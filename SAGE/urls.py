@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from views import home, agregar, menu, crearEst, cliente, solicitar, reservar, pagar, estacionamientos_registrados, datos_estacionamiento
-from SAGE.views import confirmarPago
+from views import home, agregar, menu, crearEst, cliente, solicitar, reservar, pagar, estacionamientos_registrados, datos_estacionamiento,\
+                  confirmarPago, reservas_registradas, datos_pago 
 
 urlpatterns = patterns('',
     # Examples:
@@ -20,4 +20,6 @@ urlpatterns = patterns('',
     url(r'^reservar',reservar),
     url(r'^pagar',pagar),
     url(r'^confirmarPago',confirmarPago),
+    url(r'^reservas_registradas',reservas_registradas),
+    url(r'^datos_pago/(?P<id>[0-9]+)',datos_pago)
 )

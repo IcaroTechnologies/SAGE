@@ -5,7 +5,7 @@ Created on Nov 6, 2014
 
 @author: luis
 '''
-from Sist_SAGE.models import  Estacionamiento, reserva 
+from Sist_SAGE.models import  Estacionamiento, reserva, pago
 from Sist_SAGE.forms import EstacionamientoForm, ReservaForm, PagoForm
 from django.shortcuts import render
 from datetime import timedelta
@@ -98,7 +98,6 @@ def verificarReserva(puestos, inicioReserva, finReserva):
                     if finReserva < primera_reserva[0]:
                         return True
                 elif i==len(puesto)-1:
-                    print inicioReserva, segunda_reserva[1]
                     if inicioReserva > segunda_reserva[1]:
                         return True
                 else:
@@ -137,15 +136,19 @@ def pagar (request):
 def confirmarPago(request):
     args = {}
     if request.method == 'POST':
-        form = PagoForm(request.POST) 
+       
+        form = PagoForm(request.POST)      
         if form.is_valid():
+            model = form.save(commit=False)
+            model.codigoConfirmacion = generarCodigoConfirmacion()
             sol = reserva.objects.last()
-            form.cleaned_data['codigoConfirmacion']=generarCodigoConfirmacion()
-            form.cleaned_data["inicio"].initial=sol.get_inicio()
-            form.cleaned_data['fin']=sol.get_fin()
-            form.save()
-            return render (request, 'confirmacion.html',{'pago': form,
-                                                         'sol':sol})
+            model.inicio=sol.get_inicio()
+            model.fin=sol.get_fin()
+            inicio=timedelta(hours=int(sol.get_horaInicio()), minutes=int(sol.get_minInicio()))
+            fin=timedelta(hours=int(sol.get_horaFin()), minutes=int(sol.get_minFin()))
+            model.monto = calcularMonto(inicio,fin)
+            model.save()
+            return render (request, 'confirmacion.html',{'pago': model})
     else:
         form = EstacionamientoForm()
     args['form'] = form
@@ -159,3 +162,18 @@ def generarCodigoConfirmacion():
         codigo = codigo + str(digito)
         i+=1
     return "SAGE"+codigo
+
+def calcularMonto(inicio,fin):
+    seg = (fin-inicio).total_seconds() // 3600
+    bloque_incompleto = int((fin-inicio).total_seconds()) - (seg*3600)
+    if bloque_incompleto > 0:
+        seg+=1
+    return seg * 8.772
+    
+def reservas_registradas(request):
+    entradas = pago.objects.all()
+    return render(request,'reservas_registradas.html', {'pagos' : entradas})
+
+def datos_pago (request,id):
+    datosPago=pago.objects.get(pk=id)
+    return render (request,'datosPago.html', {'pago' : datosPago})

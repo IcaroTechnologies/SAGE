@@ -14,13 +14,16 @@
    </div>
   <div class="grid_6 push_4" id="print">
   <ul>  
-     <li> {{pago.codigoConfirmacion}} </li>
-	  <li> Nombre: {{pago.nombre.value}} </li>
-     <li> Cédula: {{pago.cedula.value}} </li>
-     <li> Tipo de tarjeta: {{pago.tipoTarjeta.value}} </li>
-     <li> Número de tarjeta: {{pago.obtener_ultimos_4_digitos}} </li>
-  	  <li> Hora de inicio: {{pago.inicio}}:{{sol.minInicio}} </li>
-	  <li> Hora de inicio: {{sol.horaFin}}:{{sol.minFin}} </li>
+     <li> <b> Referencia de reserva: </b> {{pago.codigoConfirmacion}} </li>
+	  <li> <b>Monto subtotal {{pago.monto}}</b> </li>
+	  <li> <b>IVA</b> {{pago.obtener_iva}} </li>
+	  <li> <b>Monto total</b> {{pago.obtener_total}} </li>
+	  <li> <b>Nombre:</b> {{pago.nombre}} </li>
+     <li> <b>Cédula:</b> {{pago.cedula}} </li>
+     <li> <b>Tipo de tarjeta:</b> {{pago.tipoTarjeta}} </li>
+     <li> <b> Número de tarjeta:</b> {{pago.obtener_ultimos_4_digitos}} </li>
+  	  <li> <b>Horario </b> {{pago.inicio}} - {{pago.fin}}</li>
+
      <br><br>
   </ul>
   </div>
@@ -59,7 +62,7 @@ top: 80px;
 #button {
 
 position:relative;
-top: 300px;
+top: 360px;
 }
 
 #print {

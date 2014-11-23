@@ -8,6 +8,8 @@ from Sist_SAGE.models import Estacionamiento, reserva, pago
 from django.forms import ModelForm
 import random
 
+
+
 class EstacionamientoForm(ModelForm):
     class Meta: 
         model = Estacionamiento
@@ -53,6 +55,7 @@ class EstacionamientoForm(ModelForm):
         
         
 class ReservaForm(ModelForm):
+    
     class Meta:
         model = reserva
         fields ='__all__'
@@ -75,7 +78,8 @@ class ReservaForm(ModelForm):
 class PagoForm(ModelForm):
     class Meta:
         model = pago
-        fields ='__all__'
+        fields = ['nombre','cedula','tipoTarjeta','digitos','anoVencimiento','mesVencimiento','codigoSeguridad']
+        exclude = ('inicio','fin','monto','codigoConfirmacion','reserva')
         error_messages = {
             'nombre': {
                 'required':("Este campo es obligatorio"),
@@ -99,9 +103,3 @@ class PagoForm(ModelForm):
                 'required':("Este campo es obligatorio"),
             },
         }
- 
-
-    def obtener_ultimos_4_digitos(self):
-        var = self.cleaned_data['digitos']
-        return "************"+var[12:]
-        
