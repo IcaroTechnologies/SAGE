@@ -161,18 +161,20 @@ def confirmarPago(request):
 def generarCodigoConfirmacion():
     codigo = ''
     i=0
-    while i < 10:
+    numeroDigitos=10
+    while i < numeroDigitos:
         digito=random.randint(0,9)
         codigo = codigo + str(digito)
         i+=1
     return "SAGE"+codigo
 
 def calcularMonto(inicio,fin):
-    seg = (fin-inicio).total_seconds() // 3600
-    bloque_incompleto = int((fin-inicio).total_seconds()) - (seg*3600)
+    segundos_de_una_hora = 3600
+    bloques = (fin-inicio).total_seconds() // segundos_de_una_hora
+    bloque_incompleto = int((fin-inicio).total_seconds()) - (bloques*segundos_de_una_hora)
     if bloque_incompleto > 0:
-        seg+=1
-    return seg * 8.772
+        bloques+=1
+    return bloques * 8.772
     
 def reservas_registradas(request):
     entradas = pago.objects.all()
