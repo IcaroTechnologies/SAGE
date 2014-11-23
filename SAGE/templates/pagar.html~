@@ -1,0 +1,117 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{%static "Sist_SAGE/bootstrap.min.css" %}">
+<link rel="stylesheet" type="text/css" href="{%static "Sist_SAGE/960.css" %}">
+
+<div class="container_12">
+      
+	<div class="grid_12" id="banner_azul">
+      <br><br>
+   	<h1> SAGE </h1>
+   </div>
+	<div class="grid_12" id="formulario">
+
+			<form action="/confirmarPago/" method="post">
+		 	 {% csrf_token %}
+			  <div class="form-group" >	
+			  {{ form.errors.nombre}}
+		    	 	<span class="red">*</span>   
+			  		<label for="nombre">Nombre y Apellido</label> 
+					<input type="text"  class="form-control" name="nombre">
+			  </div>
+		     <div class="form-group">
+			  {{ form.errors.cedula }}
+		    	   <span class="red">*</span>
+			  		<label for="nombre">Cédula de identidad</label>  <br> 
+					<input type="text" class="form-control" name="cedula"><br>
+			  </div>
+			  <div class="form-group">
+				{{ form.errors.tipoTarjeta }}
+		    	   <span class="red">*</span>
+			  		<label for="nombre">Tipo de tarjeta</label><br>  
+					<input type="text" class="form-control" name="tipoTarjeta"><br>
+			  </div>
+			  <div class="form-group">
+			  {{ form.errors.digitos }}
+			  		<span class="red">*</span>
+			  		<label for="nombre">Dígitos de la tarjeta</label>  <br> 
+					<input type="text" placeholder="16 dígitos, sin espacios" class="form-control" name="digitos"><br>
+			  </div>
+			  <div class="form-group">
+			  {{ form.errors.anoVencimiento }}
+			  		<label for="nombre">Año de vencimiento de la tarjeta</label>  <br> 
+					<input type="text" class="form-control" name="anoVencimiento"><br>
+			  </div>
+			  <div class="form-group">
+		     {{ form.errors.mesVencimiento }}
+		     <span class="red">*</span>
+			  		<label for="nombre">Mes de vencimiento de la tarjeta</label> <br>  
+					<input type="text"  class="form-control" name="mesVencimiento"><br>
+			  </div>
+			  <div class="form-group">
+		     {{ form.errors.codigoSeguridad}}
+			  		<label for="nombre">Código de seguridad</label> <br>  
+					<input type="password" class="form-control" name="codigoSeguridad"><br>
+			  </div>
+
+			  <input type="submit" value="Validar pago" class="btn btn-primary" style="width:100px">
+			  <div class="form-group">
+			  <div class="grid_4" id="button">
+				<br>
+      			<a href="/menu/"><button id ="volver" type="button" class="btn btn-primary">Cancelar y volver al menú inicial</button></a>
+   		  </div>
+			</div>
+		</form>
+	</div>
+  </div>
+</div>
+
+<style>
+
+#banner_azul {
+
+width:100%
+height: 200px;
+background-color: rgb(46, 140, 224);
+
+}
+
+#volver {
+
+position:relative;
+right:10px;
+
+}
+
+
+.red {
+
+font-size: 20px;
+color: red;
+
+}
+
+h1 {
+
+position:relative;
+left: 75px;
+font-family: arial;
+
+}
+
+#formulario {
+
+border: 1px-solid black;
+position:relative;
+top: 100px;
+border: 1px solid black;
+padding: 30px;
+border-radius: 25px;
+
+}
+
+li {
+
+color:red;
+
+}
+</style>

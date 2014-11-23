@@ -10,17 +10,19 @@
    </div>
 
    <div class="grid_12 push_3" id="tittle">
-     <h2> Ha solicitado una reserva exitosamente ! </h2>
+     <h2> ¡ Hay disponibilidad en el horario solicitado !  </h2>
    </div>
   <div class="grid_6 push_4" id="print">
   <ul>  
 	  <li> Hora de inicio de la reserva {{res.horaInicio.value}}:{{res.minInicio.value}} </li>
      <li> Hora fin de la reserva {{res.horaFin.value}}:{{res.minFin.value}} </li>
+    <li> Hora fin de la reserva {{form.id.value}} </li>
   </ul>
   </div>
 
    <div class="grid_4 pull_1" id="button">
-      <a class="btn btn-primary" href=''>Volver al menú inicial</a>
+		<a class="btn btn-primary" href='/pagar/'>Pagar</a><br><br>
+      <a class="btn btn-primary" href='/'>Volver al menú inicial</a>
    </div>
 </div>
 

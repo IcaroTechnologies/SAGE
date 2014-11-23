@@ -6,9 +6,10 @@ Created on Nov 6, 2014
 @author: luis
 '''
 from Sist_SAGE.models import  Estacionamiento, reserva 
-from Sist_SAGE.forms import EstacionamientoForm, ReservaForm
+from Sist_SAGE.forms import EstacionamientoForm, ReservaForm, PagoForm
 from django.shortcuts import render
 from datetime import timedelta
+import random
 
 def home(request):
     return render (request,'index.html')
@@ -129,3 +130,32 @@ def verificar_minimo_reserva(inicio,fin):
         return fin-inicio > hora
     else:
         return True
+    
+def pagar (request):
+    return render (request, 'pagar.html')
+    
+def confirmarPago(request):
+    args = {}
+    if request.method == 'POST':
+        form = PagoForm(request.POST) 
+        if form.is_valid():
+            sol = reserva.objects.last()
+            form.cleaned_data['codigoConfirmacion']=generarCodigoConfirmacion()
+            form.cleaned_data["inicio"].initial=sol.get_inicio()
+            form.cleaned_data['fin']=sol.get_fin()
+            form.save()
+            return render (request, 'confirmacion.html',{'pago': form,
+                                                         'sol':sol})
+    else:
+        form = EstacionamientoForm()
+    args['form'] = form
+    return render(request,'pagar.html',args)
+
+def generarCodigoConfirmacion():
+    codigo = ''
+    i=0
+    while i < 10:
+        digito=random.randint(0,9)
+        codigo = codigo + str(digito)
+        i+=1
+    return "SAGE"+codigo
