@@ -2,11 +2,10 @@
 # -*- coding: utf_8 -*-
 
 from django.core.validators import EmailValidator, RegexValidator,\
-    MinValueValidator, MaxValueValidator
+    MinValueValidator
 from django.db import models
 from django.core import validators
 import decimal
-
 
 class Estacionamiento (models.Model):
     
@@ -46,9 +45,7 @@ class Estacionamiento (models.Model):
                 "\nCorreo principal: "+self.correo_1+
                 "\nCorreo secundario: "+self.correo_2+
                 "\nRIF: "+self.rif)
-        
-        
-    
+
 
 class reserva (models.Model):
     
@@ -74,16 +71,12 @@ class reserva (models.Model):
         return self.horaFin
     def get_minFin(self):
         return self.minFin
-                   
-        
 
     def __unicode__(self):
         return "Hora de entrada -> "+ self.horaInicio+ ":"+ self.minInicio+"\nHora de salida ->"+self.horaFin+":"+self.minFin
     
     
 class pago (models.Model):
-
-
 
     solo_letras= RegexValidator(r'^[a-zA-Z\ñ]+ [a-zA-Z\ñ ]+$', 'Escriba su nombre y apellido, Solo se permiten letras en este campo.')
     formato_cedula = RegexValidator(r'^[0-9]{,8}$', 'Formato incorrecto de la cédula, solo escriba los digitos de la cedula sin espacios ni otros caracteres.')
@@ -117,7 +110,3 @@ class pago (models.Model):
     
     def obtener_total_decimal(self):
         return round(decimal.Decimal(self.obtener_iva()) + self.monto,2)
-    
-
-    
-    

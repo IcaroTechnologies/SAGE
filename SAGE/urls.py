@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from views import home, agregar, menu, crearEst, cliente, solicitar, reservar, pagar, estacionamientos_registrados, datos_estacionamiento,\
+from views import home, agregar, menu, crearEst, cliente, solicitar,\
+                  reservar, pagar, estacionamientos_registrados, datos_estacionamiento,\
                   confirmarPago, reservas_registradas, datos_pago 
 
 urlpatterns = patterns('',

@@ -14,17 +14,12 @@ import random
 def home(request):
     return render (request,'index.html')
 
-def agregar(request):
-    return render (request,'agregar.html')
-
 def menu (request):
     return render (request, 'menu.html')
 
-def cliente (request):
-    return render (request,'cliente.html')
+def agregar(request):
+    return render (request,'agregar.html')
 
-def solicitar(request):
-    return render (request, 'solicitar.html')
 
 def crearEst(request):
     
@@ -40,6 +35,8 @@ def crearEst(request):
 
     return render(request,'agregar.html',args)
 
+
+
 def estacionamientos_registrados(request):
     entradas = Estacionamiento.objects.all()
     return render(request,'estacionamientos_registrados.html', {'estacionamientos_registrados' : entradas})
@@ -47,6 +44,13 @@ def estacionamientos_registrados(request):
 def datos_estacionamiento(request,id):
     estDatos=Estacionamiento.objects.get(pk=id)
     return render (request,'datos_estacionamiento.html', {'datos' : estDatos})
+
+
+def cliente (request):
+    return render (request,'cliente.html')
+
+def solicitar(request):
+    return render (request, 'solicitar.html')
 
 def reservar (request):
     args={}

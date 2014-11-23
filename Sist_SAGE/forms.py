@@ -3,12 +3,9 @@ Created on Nov 12, 2014
 
 @author: luis
 '''
-from django import forms
+
 from Sist_SAGE.models import Estacionamiento, reserva, pago
 from django.forms import ModelForm
-import random
-
-
 
 class EstacionamientoForm(ModelForm):
     class Meta: 
