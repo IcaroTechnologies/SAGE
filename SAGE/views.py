@@ -168,12 +168,13 @@ def generarCodigoConfirmacion():
     return "SAGE"+codigo
 
 def calcularMonto(inicio,fin):
+    precio_por_hora = 8.772
     segundos_de_una_hora = 3600
     bloques = (fin-inicio).total_seconds() // segundos_de_una_hora
     bloque_incompleto = int((fin-inicio).total_seconds()) - (bloques*segundos_de_una_hora)
     if bloque_incompleto > 0:
         bloques+=1
-    return bloques * 8.772
+    return bloques * precio_por_hora
     
 def reservas_registradas(request):
     entradas = pago.objects.all()
