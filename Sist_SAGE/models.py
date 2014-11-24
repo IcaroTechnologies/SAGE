@@ -6,11 +6,10 @@ from django.core.validators import EmailValidator, RegexValidator,\
 from django.db import models
 from django.core import validators
 import decimal
-from django.template.defaultfilters import default
 
 class Estacionamiento (models.Model):
     
-    solo_letras= RegexValidator(r'^[a-zA-Z\ñ]+$', 'Solo se permiten letras en este campo.')
+    solo_letras= RegexValidator(r'^[a-zA-Z\ñ ]+$', 'Solo se permiten letras en este campo.')
     formato_telefono = RegexValidator(regex='^0?(212|412|414|424|416|426)-?[0-9]{7}$',message="Formato Invalido, ej: 02121234567")
     formato_hora = RegexValidator(regex='^(0?[0-9]|1[0-9]|2[0-3])$', message="Formato de hora incorrecto, debe estar entre 0 y 23")
     formato_minuto =RegexValidator(regex='^[0-5]?[0-9]$', message="Formato de hora incorrecto, los minutos deben estar entre 0 y 59")
@@ -19,21 +18,21 @@ class Estacionamiento (models.Model):
     nombreDueno = models.CharField(max_length=50)
     direccionEst = models.CharField(max_length=50)
     correo_1 = models.CharField(max_length=50,validators=[EmailValidator()])
-    correo_2 = models.CharField(max_length=50,blank=True, validators=[EmailValidator()],default=None)
+    correo_2 = models.CharField(max_length=50,blank=True, validators=[EmailValidator()])
     telefono_1 = models.CharField(max_length=50,validators=[formato_telefono])
-    telefono_2 = models.CharField(max_length=50,blank=True,validators=[formato_telefono],default=None)
-    telefono_3 = models.CharField(max_length=50,blank=True,validators=[formato_telefono],default=None)
+    telefono_2 = models.CharField(max_length=50,blank=True,validators=[formato_telefono])
+    telefono_3 = models.CharField(max_length=50,blank=True,validators=[formato_telefono])
     rif = models.CharField(max_length=10)
-    puestos = models.CharField(max_length=10, blank=False)
+    puestos = models.CharField(max_length=10)
     horaApertura = models.CharField(max_length=2,validators=[formato_hora])
     minApertura=models.CharField(max_length=2,validators=[formato_minuto])
     horaCierre = models.CharField(max_length=2,validators=[formato_hora])
     minCierre = models.CharField(max_length=2,validators=[formato_minuto])
-    tarifa = models.CharField(max_length=10,blank=False)
-    horaAperturaReserva = models.CharField(max_length=2,blank=True, validators=[formato_hora],default=None)
-    minAperturaReserva = models.CharField(max_length=2,blank=True,validators=[formato_minuto],default=None)
-    horaCierreReserva = models.CharField(max_length=2,blank=True, validators=[formato_hora],default=None)
-    minCierreReserva = models.CharField(max_length=2,blank=True,validators=[formato_minuto],default=None)
+    tarifa = models.CharField(max_length=10)
+    horaAperturaReserva = models.CharField(max_length=2,blank=True, validators=[formato_hora])
+    minAperturaReserva = models.CharField(max_length=2,blank=True,validators=[formato_minuto])
+    horaCierreReserva = models.CharField(max_length=2,blank=True, validators=[formato_hora])
+    minCierreReserva = models.CharField(max_length=2,blank=True,validators=[formato_minuto])
     
     def __unicode__(self):              # __unicode__ on Python 2
         return (u"Dueño: "+self.nombreDueno+
@@ -87,6 +86,7 @@ class pago (models.Model):
     formato_codigo = RegexValidator(r'^[0-9]{3,4}$', 'El codigo de seguridad debe tener 3 o 4 dígitos')
     formato_tipo_tarjeta = RegexValidator(r'^(Visa|MasterCard|Express)$','Tipo de tarjeta incorrecto')
     
+    reserva = models.OneToOneField(reserva, default="1")
     codigoSeguridad = models.CharField(max_length=4,validators=[formato_codigo])
     nombre = models.CharField(max_length=50,validators=[solo_letras])
     cedula = models.CharField(max_length=10,validators=[formato_cedula])
@@ -95,8 +95,6 @@ class pago (models.Model):
     anoVencimiento = models.CharField(max_length=50, validators=[formato_ano])
     mesVencimiento = models.CharField(max_length=10,validators=[formato_mes])
     codigoConfirmacion = models.CharField(max_length=18,blank=True)
-    inicio = models.CharField(max_length=10,blank=True,default="NA")
-    fin = models.CharField(max_length=10,blank=True,default="NA")
     monto = models.DecimalField(max_digits=6,blank=True, decimal_places=2, default=0)
 
     def obtener_ultimos_4_digitos(self):

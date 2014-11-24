@@ -27,7 +27,7 @@
 	  <li><b> Número de Puestos: </b> {{est.puestos.value}} </li>
 	  <li><b> Hora apertura: </b> {{est.horaApertura.value}}:{{est.minApertura.value}} </li>
 	  <li><b> Hora cierre: </b> {{est.horaCierre.value}}:{{est.minCierre.value}} </li>
-	  <li><b> Apertura reserva: </b>{{est.horaAperturaReserva.value}}:{{est.minAperturaReserva.value}} </li>
+	  <li><b> Apertura reserva: </b>{{est.horaApertura.value}}:{{est.minApertura.value}} </li>
 	  <li><b> Cierre reserva: </b>{{est.horaCierreReserva.value}}:{{est.minCierreReserva.value}} </li>
   </ul>
   </div>

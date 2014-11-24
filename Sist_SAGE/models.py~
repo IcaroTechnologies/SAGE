@@ -6,7 +6,6 @@ from django.core.validators import EmailValidator, RegexValidator,\
 from django.db import models
 from django.core import validators
 import decimal
-from django.template.defaultfilters import default
 
 class Estacionamiento (models.Model):
     
@@ -66,13 +65,10 @@ class reserva (models.Model):
     
     def get_horaInicio(self):
         return self.horaInicio
-    
     def get_minInicio(self):
         return self.minInicio
-    
     def get_horaFin(self):
         return self.horaFin
-    
     def get_minFin(self):
         return self.minFin
 
@@ -99,13 +95,7 @@ class pago (models.Model):
     anoVencimiento = models.CharField(max_length=50, validators=[formato_ano])
     mesVencimiento = models.CharField(max_length=10,validators=[formato_mes])
     codigoConfirmacion = models.CharField(max_length=18,blank=True)
-<<<<<<< HEAD
-    inicio = models.CharField(max_length=10,blank=True,default="NA")
-    fin = models.CharField(max_length=10,blank=True,default="NA")
     monto = models.DecimalField(max_digits=6,blank=True, decimal_places=2, default=0)
-=======
-    monto = models.DecimalField(max_digits=6,blank=True, decimal_places=3, default=0)
->>>>>>> c0efbbbf3326233f38280b47f42912117b2cd37f
 
     def obtener_ultimos_4_digitos(self):
         var = self.digitos

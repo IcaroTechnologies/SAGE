@@ -251,6 +251,8 @@ class EstacionamientoFormTests(TestCase):
         self.assertEqual(form.is_valid(), False)                             
 
 class ReservaFormTests(TestCase):
+    
+    
         def test_horaInicio_mayor23(self):
             form_data = {'horaInicio':"24",'minInicio':'20',
                          'horaFin':'23', 'minFin':'50'}       
@@ -300,7 +302,7 @@ class ReservaFormTests(TestCase):
             self.assertEqual(form.is_valid(), False) 
             
 
-class ReservaTests(TestCase):
+class SolicitudReservaTests(TestCase):
     
     global _puestos
     _puestos=estacionamiento_ficticio()
@@ -350,7 +352,8 @@ class ReservaTests(TestCase):
         self.assertFalse(verificarReserva(_puestos, inicioReserva, finReserva)) 
     
 
-class IntegracionFormatoSolicitudYDisponibilidad(TestCase):
+class IntegracionFormatoReservaYDisponibilidad(TestCase):
+    
     
     def test_solicitud_posible_primera_hora(self):
         form_data = {'horaInicio':"5",'minInicio':'20',
@@ -388,11 +391,8 @@ class IntegracionFormatoSolicitudYDisponibilidad(TestCase):
         fin=timedelta(hours=int(model.horaFin),minutes=int(model.minFin))
         self.assertFalse(verificarReserva(estacionamiento_ficticio(), inicio, fin))
     
-    
-    
-    
-    
 class PagoFormTests(TestCase):
+    
     def test_Pago_campo_obligatorio_nombre_vacio(self):
         form_data = {'nombre': '', 'cedula': '21289762',
                      'tipoTarjeta':'Visa','digitos':'1234123412341234',
@@ -504,6 +504,7 @@ class PagoFormTests(TestCase):
                      'anoVencimiento':'2015','mesVencimiento':'10',
                      'codigoSeguridad':'504'}
         form = PagoForm(data=form_data)
+        self.assertEqual(form.is_valid(), False)
         
     def test_Pago_campo_anoVencimiento_menorFechaActual(self):
         form_data = {'nombre': 'Luis', 'cedula': '21289762',
