@@ -99,7 +99,13 @@ class pago (models.Model):
     anoVencimiento = models.CharField(max_length=50, validators=[formato_ano])
     mesVencimiento = models.CharField(max_length=10,validators=[formato_mes])
     codigoConfirmacion = models.CharField(max_length=18,blank=True)
+<<<<<<< HEAD
+    inicio = models.CharField(max_length=10,blank=True,default="NA")
+    fin = models.CharField(max_length=10,blank=True,default="NA")
     monto = models.DecimalField(max_digits=6,blank=True, decimal_places=2, default=0)
+=======
+    monto = models.DecimalField(max_digits=6,blank=True, decimal_places=3, default=0)
+>>>>>>> c0efbbbf3326233f38280b47f42912117b2cd37f
 
     def obtener_ultimos_4_digitos(self):
         var = self.digitos

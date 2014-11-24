@@ -76,7 +76,7 @@ class PagoForm(ModelForm):
     class Meta:
         model = pago
         fields = ['nombre','cedula','tipoTarjeta','digitos','anoVencimiento','mesVencimiento','codigoSeguridad']
-        exclude = ('inicio','fin','monto','codigoConfirmacion','reserva')
+        exclude = ('monto','codigoConfirmacion','reserva')
         error_messages = {
             'nombre': {
                 'required':("Este campo es obligatorio"),

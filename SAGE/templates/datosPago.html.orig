@@ -8,8 +8,39 @@
       <img src="{%static "Sist_SAGE/LogoSAGE.png" %}" width="200px" height="120px">   	
    </div>
 
-   <div class="grid_12 push_2" id="tittle">
-     <h2> El pago ha sido confirmado exitosamente  </h2>
+<<<<<<< HEAD
+   <div class="grid_12 text-center" id="tittle">
+     <h2> Resumen de reservación  </h2>
+=======
+   <div class="grid_12" id="banner_azul">
+      <br><br>
+      <h1> SAGE </h1>
+  </div>
+
+
+  <div class="grid_6 push_2">
+     <br><br>
+	  <div class="grid_6 push_2" id="print">
+	  <ul>  
+		  <li> <b> Referencia de reserva: </b> {{pago.codigoConfirmacion}} </li>
+		  <li> <b>Monto subtotal {{pago.monto}}</b> </li>
+		  <li> <b>IVA</b> {{pago.obtener_iva}} </li>
+		  <li> <b>Monto total</b> {{pago.obtener_total_decimal}} </li>
+		  <li> <b>Nombre:</b> {{pago.nombre}} </li>
+		  <li> <b>Cédula:</b> {{pago.cedula}} </li>
+		  <li> <b>Tipo de tarjeta:</b> {{pago.tipoTarjeta}} </li>
+		  <li> <b> Número de tarjeta:</b> {{pago.obtener_ultimos_4_digitos}} </li>
+	  	  <li> <b>Horario </b> {{pago.reserva.horaInicio}}:{{pago.reserva.minInicio}} -
+									  {{pago.reserva.horaFin}}:{{pago.reserva.minFin}}</li>
+
+		  <br><br>
+  	  </ul>
+  </div>
+ 
+
+   <div class="grid_5 push_3" id="button"><br>
+      <a class="btn btn-primary" href="/reservas_registradas/">Regresar</a>
+>>>>>>> c0efbbbf3326233f38280b47f42912117b2cd37f
    </div>
   <div class="grid_6 push_3" id="print">
   <ul>  
@@ -21,11 +52,10 @@
      <li> <b>Cédula:</b> {{pago.cedula}} </li>
      <li> <b>Tipo de tarjeta:</b> {{pago.tipoTarjeta}} </li>
      <li> <b> Número de tarjeta:</b> {{pago.obtener_ultimos_4_digitos}} </li>
-	  <li> <b>Horario </b> {{pago.reserva.horaInicio}}:{{pago.reserva.minInicio}} -
-								  {{pago.reserva.horaFin}}:{{pago.reserva.minFin}}</li>
+  	  <li> <b>Horario </b> {{pago.inicio}} - {{pago.fin}}</li>
   </ul>
   </div>
-   <div class="grid_4 pull_2" id="button">
+   <div class="grid_4 pull_1" id="button">
    		<br><br>
       <a class="btn btn-primary" href='/'>Volver al menú inicial</a>
    </div>
@@ -52,7 +82,7 @@ font-family: arial;
 #tittle {
 
 position:relative;
-top: 80px;
+top: 70px;
 
 
 }
@@ -66,7 +96,7 @@ top: 360px;
 #print {
 
 position:relative;
-top:100px;
+top:90px;
 font-size: 20px;
 
 
