@@ -70,6 +70,4 @@ class EstacionamientoParametrizado(Estacionamiento):
 	            "\nHora de Apertura: "+str(self.horaApertura)+
 	            "\nHora de Clausura: "+str(self.horaClausura)+
 	            "\nHora de inicio de reservas: "+str(self.horaAperturaReserva)+
-                "\nHora de cierre de reservas: "+str(self.horaClausuraReserva))
-		
-    
+              "\nHora de cierre de reservas: "+str(self.horaClausuraReserva))

@@ -6,6 +6,7 @@ from django.core.validators import EmailValidator, RegexValidator,\
 from django.db import models
 from django.core import validators
 import decimal
+from django.template.defaultfilters import default
 
 class Estacionamiento (models.Model):
     
@@ -18,21 +19,21 @@ class Estacionamiento (models.Model):
     nombreDueno = models.CharField(max_length=50)
     direccionEst = models.CharField(max_length=50)
     correo_1 = models.CharField(max_length=50,validators=[EmailValidator()])
-    correo_2 = models.CharField(max_length=50,blank=True, validators=[EmailValidator()])
+    correo_2 = models.CharField(max_length=50,blank=True, validators=[EmailValidator()],default=None)
     telefono_1 = models.CharField(max_length=50,validators=[formato_telefono])
-    telefono_2 = models.CharField(max_length=50,blank=True,validators=[formato_telefono])
-    telefono_3 = models.CharField(max_length=50,blank=True,validators=[formato_telefono])
+    telefono_2 = models.CharField(max_length=50,blank=True,validators=[formato_telefono],default=None)
+    telefono_3 = models.CharField(max_length=50,blank=True,validators=[formato_telefono],default=None)
     rif = models.CharField(max_length=10)
-    puestos = models.CharField(max_length=10, validators=[MinValueValidator(0)])
+    puestos = models.CharField(max_length=10, blank=False)
     horaApertura = models.CharField(max_length=2,validators=[formato_hora])
     minApertura=models.CharField(max_length=2,validators=[formato_minuto])
     horaCierre = models.CharField(max_length=2,validators=[formato_hora])
     minCierre = models.CharField(max_length=2,validators=[formato_minuto])
-    tarifa = models.CharField(max_length=10, validators=[MinValueValidator(0)])
-    horaAperturaReserva = models.CharField(max_length=2,blank=True, validators=[formato_hora])
-    minAperturaReserva = models.CharField(max_length=2,blank=True,validators=[formato_minuto])
-    horaCierreReserva = models.CharField(max_length=2,blank=True, validators=[formato_hora])
-    minCierreReserva = models.CharField(max_length=2,blank=True,validators=[formato_minuto])
+    tarifa = models.CharField(max_length=10,blank=False)
+    horaAperturaReserva = models.CharField(max_length=2,blank=True, validators=[formato_hora],default=None)
+    minAperturaReserva = models.CharField(max_length=2,blank=True,validators=[formato_minuto],default=None)
+    horaCierreReserva = models.CharField(max_length=2,blank=True, validators=[formato_hora],default=None)
+    minCierreReserva = models.CharField(max_length=2,blank=True,validators=[formato_minuto],default=None)
     
     def __unicode__(self):              # __unicode__ on Python 2
         return (u"Dueño: "+self.nombreDueno+
@@ -96,17 +97,17 @@ class pago (models.Model):
     codigoConfirmacion = models.CharField(max_length=18,blank=True)
     inicio = models.CharField(max_length=10,blank=True,default="NA")
     fin = models.CharField(max_length=10,blank=True,default="NA")
-    monto = models.DecimalField(max_digits=6,blank=True, decimal_places=3, default=0)
+    monto = models.DecimalField(max_digits=6,blank=True, decimal_places=2, default=0)
 
     def obtener_ultimos_4_digitos(self):
         var = self.digitos
         return "************"+var[12:]
         
     def obtener_iva(self):
-        return round(((14*self.monto)/100),3)
+        return round(((14*self.monto)/100),2)
     
     def obtener_total(self):
-        return round(decimal.Decimal(self.obtener_iva()),3) + self.monto
+        return round(decimal.Decimal(self.obtener_iva()),2) + round(decimal.Decimal(self.monto),2)
     
     def obtener_total_decimal(self):
         return round(decimal.Decimal(self.obtener_iva()) + self.monto,2)

@@ -5,10 +5,9 @@
 <div class="container_12">
       
 	<div class="grid_12" id="banner_azul">
-      <br><br>
-   	<h1> SAGE </h1>
+      <img src="{%static "Sist_SAGE/LogoSAGE.png" %}" width="200px" height="120px">
    </div>
-	<div class="grid_12" id="formulario">
+	<div class="grid_6 push_3" id="formulario">
 
 			<form action="/confirmarPago/" method="post">
 		 	 {% csrf_token %}
@@ -39,16 +38,16 @@
 					<input type="text" placeholder="16 dígitos, sin espacios" class="form-control" name="digitos"><br>
 			  </div>
 			  <div class="form-group">
-			  {{ form.errors.anoVencimiento }}
-					<span class="red">*</span>
-			  		<label for="nombre">Año de vencimiento de la tarjeta</label>  <br> 
-					<input type="text" class="form-control" name="anoVencimiento"><br>
-			  </div>
-			  <div class="form-group">
 		     {{ form.errors.mesVencimiento }}
 		     		<span class="red">*</span>
 			  		<label for="nombre">Mes de vencimiento de la tarjeta</label> <br>  
 					<input type="text"  class="form-control" name="mesVencimiento"><br>
+			  </div>
+			  <div class="form-group">
+			  {{ form.errors.anoVencimiento }}
+					<span class="red">*</span>
+			  		<label for="nombre">Año de vencimiento de la tarjeta</label>  <br> 
+					<input type="text" class="form-control" name="anoVencimiento"><br>
 			  </div>
 			  <div class="form-group">
 		     {{ form.errors.codigoSeguridad}}
@@ -76,6 +75,7 @@
 width:100%
 height: 200px;
 background-color: rgb(46, 140, 224);
+border-radius: 6px;
 
 }
 
@@ -106,7 +106,7 @@ font-family: arial;
 
 border: 1px-solid black;
 position:relative;
-top: 100px;
+top: 70px;
 border: 1px solid black;
 padding: 30px;
 border-radius: 25px;

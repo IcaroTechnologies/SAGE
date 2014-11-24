@@ -6,26 +6,40 @@
 <div class="container_12">
 
 	<div class="grid_12" id="banner_azul">
-      <br><br>
-      <h1 id="sage"> SAGE </h1>
+      <img src="{%static "Sist_SAGE/LogoSAGE.png" %}" width="200px" height="120px"><br>
   </div>
   
-  <h2 id="titulo"> Estacionamientos registrados </h2>
-  <hr>
-  <ul>
-	  {% for Estacionamiento in estacionamientos_registrados %}
-	  <div class="art">
-		 <a href= '/datos_estacionamiento/{{Estacionamiento.id}}'>
-		  <li> {{ Estacionamiento.nombreEst}} </li>
-		 </a>  
-	  </div>
-  </ul>
-    
-  <hr/>
-  {% endfor %}
-
-  <div class="grid_4" id="button"><br>
+  <div class="grid_7" >
+		<h2 id="titulo"> Estacionamientos registrados </h2>
+	</div>
+  	<div class="grid_5 text-right" id="button"><br>
       <a class="btn btn-primary" href="/menu/">Regresar</a>
+      <br><br><br>
+  	</div>
+  	
+  <table id="bookTable" class="table table-hover" >
+	  <thead>
+		 <tr>
+		   <th align="left">Nombre de Estacionamiento</th>
+		   <th align="left">Nombre del Dueño</th>
+		   <th align="left">Dirección</th>
+		 </tr>
+	  </thead>
+	
+	  <tbody>
+		 {% for Estacionamiento in estacionamientos_registrados %}
+	  		<tr>
+		     <td style="text-decoration:underline; color:blue"><a href= '/datos_estacionamiento/{{Estacionamiento.id}}'> {{ Estacionamiento.nombreEst}} </a></td>
+		     <td>{{Estacionamiento.nombreDueno}}</td>
+		     <td>{{Estacionamiento.direccionEst}}</td>
+		   </tr>
+		 {% endfor %}
+		 
+	  </tbody>
+	</table><br>
+
+  <div class="grid_4" id="button">
+      <a class="btn btn-primary" href="/menu/">Regresar</a><br><br><br>
   </div> 
   
 </div>
@@ -42,7 +56,7 @@
 width:100%
 height: 200px;
 background-color: rgb(46, 140, 224);
-
+border-radius: 6px;
 }
 
 h2#titulo {
@@ -57,6 +71,60 @@ h1#sage {
 position:relative; 
 left:10px;
 
+}
+
+
+a:visited { 
+   color:black;
+   font-weight: bold;
+	font-size: 110%;
+}
+
+#button { 
+   color:white;
+   font-weight: bold;
+   font-size: 100%;
+}
+
+
+#bookTable th {
+      background-color: #ddd;
+      border-color:#7A7070;
+      font-size: 14px;
+  }
+
+#bookTable th td tr{
+ border-color:black;
+ }
+
+
+.table-hover {
+
+border-color:#7A7070;
+
+}
+
+.table-hover>tbody>tr>td {
+
+border-color:#7A7070;
+
+}
+
+.table-hover>tbody>tr:hover {
+background-color: #5bc0de;
+}
+
+#bookTable tr:nth-child(even) {
+
+background-color: #F2F8F7;
+
+}
+
+input[type=submit] {
+-webkit-appearance: button;
+cursor: pointer;
+background-color:#F8F0BE;
+border-radius:6px;
 }
 
 
