@@ -146,11 +146,10 @@ def confirmarPago(request):
             model = form.save(commit=False)
             model.codigoConfirmacion = generarCodigoConfirmacion()
             sol = reserva.objects.last()
-            model.inicio=sol.get_inicio()
-            model.fin=sol.get_fin()
             inicio=timedelta(hours=int(sol.get_horaInicio()), minutes=int(sol.get_minInicio()))
             fin=timedelta(hours=int(sol.get_horaFin()), minutes=int(sol.get_minFin()))
             model.monto = calcularMonto(inicio,fin)
+            model.reserva = sol
             model.save()
             return render (request, 'confirmacion.html',{'pago': model})
     else:
