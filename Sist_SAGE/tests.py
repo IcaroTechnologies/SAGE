@@ -110,7 +110,7 @@ class EstacionamientoFormTests(TestCase):
         
     def test_Estacionamiento_campo_obligatorio_tarifa_vacio(self):
         form_data = {'nombreEst': 'CC Plaza', 'nombreDueno': 'Luis',
-                     'direccionEst':'La Boyera','correo_1':'sage@usb.ve',
+                    'direccionEst':'La Boyera','correo_1':'sage@usb.ve',
                      'telefono_1':'04141111111','rif':'J-2323232',
                       'puestos':'50','horaApertura':"12",
                       'minApertura':'40','horaCierre':'15', 
@@ -248,58 +248,75 @@ class EstacionamientoFormTests(TestCase):
                       'minApertura':'20','horaCierre':'23', 
                       'minCierre':'50','tarifa':'0'}       
         form = EstacionamientoForm(data=form_data)
-        self.assertEqual(form.is_valid(), False)                             
+        self.assertEqual(form.is_valid(), False)  
+        
+    def test_estacionamiento_esquina(self):
+        form_data = {'nombreEst': '', 'nombreDueno': 'Luis33',
+                     'direccionEst':'La Boyera','correo_1':'sage@usb...ve',
+                     'telefono_1':'0414221111111333','rif':'J-2222323232',
+                      'puestos':'133','horaApertura':"233",
+                      'minApertura':'203','horaCierre':'233', 
+                      'minCierre':'50','tarifa':'-011'}       
+        form = EstacionamientoForm(data=form_data)
+        self.assertEqual(form.is_valid(), False)                            
 
 class ReservaFormTests(TestCase):
     
     
-        def test_horaInicio_mayor23(self):
+        def test_reserva_horaInicio_mayor23(self):
             form_data = {'horaInicio':"24",'minInicio':'20',
                          'horaFin':'23', 'minFin':'50'}       
             form = ReservaForm(data=form_data)
             self.assertEqual(form.is_valid(), False) 
             
-        def test_horaFin_mayor23(self):
+        def test_reserva_horaFin_mayor23(self):
             form_data = {'horaInicio':"23",'minInicio':'20',
                          'horaFin':'24', 'minFin':'50'}       
             form = ReservaForm(data=form_data)
             self.assertEqual(form.is_valid(), False)  
             
-        def test_horaInicio_menor0(self):
+        def test_reserva_horaInicio_menor0(self):
             form_data = {'horaInicio':"-1",'minInicio':'20',
                          'horaFin':'23', 'minFin':'50'}       
             form = ReservaForm(data=form_data)
             self.assertEqual(form.is_valid(), False) 
             
-        def test_horaFin_menor0(self):
+        def test_reserva_horaFin_menor0(self):
             form_data = {'horaInicio':"23",'minInicio':'20',
                          'horaFin':'-1', 'minFin':'50'}       
             form = ReservaForm(data=form_data)
             self.assertEqual(form.is_valid(), False)   
             
-        def test_minInicio_mayor59(self):
+        def test_reserva_minInicio_mayor59(self):
             form_data = {'horaInicio':"23",'minInicio':'60',
                          'horaFin':'23', 'minFin':'50'}       
             form = ReservaForm(data=form_data)
             self.assertEqual(form.is_valid(), False) 
             
-        def test_minFin_mayor59(self):
+        def test_reserva_minFin_mayor59(self):
             form_data = {'horaInicio':"23",'minInicio':'59',
                          'horaFin':'23', 'minFin':'60'}       
             form = ReservaForm(data=form_data)
             self.assertEqual(form.is_valid(), False) 
             
-        def test_minInicio_menor0(self):
+        def test_reserva_minInicio_menor0(self):
             form_data = {'horaInicio':"2",'minInicio':'-1',
                          'horaFin':'23', 'minFin':'50'}       
             form = ReservaForm(data=form_data)
             self.assertEqual(form.is_valid(), False) 
             
-        def test_minFin_menor0(self):
+        def test_reserva_minFin_menor0(self):
             form_data = {'horaInicio':"2",'minInicio':'20',
                          'horaFin':'23', 'minFin':'-1'}       
             form = ReservaForm(data=form_data)
+            self.assertEqual(form.is_valid(), False)        
+                    
+        def test_reserva_esquina(self):
+            form_data = {'horaInicio':"-1",'minInicio':'',
+                         'horaFin':'', 'minFin':'-1'}       
+            form = ReservaForm(data=form_data)
             self.assertEqual(form.is_valid(), False) 
+            
             
 
 class SolicitudReservaTests(TestCase):
@@ -390,8 +407,10 @@ class IntegracionFormatoReservaYDisponibilidad(TestCase):
         inicio=timedelta(hours=int(model.horaInicio),minutes=int(model.minInicio))
         fin=timedelta(hours=int(model.horaFin),minutes=int(model.minFin))
         self.assertFalse(verificarReserva(estacionamiento_ficticio(), inicio, fin))
+        
     
 class PagoFormTests(TestCase):
+    
     
     def test_Pago_campo_obligatorio_nombre_vacio(self):
         form_data = {'nombre': '', 'cedula': '21289762',
@@ -558,3 +577,10 @@ class PagoFormTests(TestCase):
         form = PagoForm(data=form_data)
         self.assertEqual(form.is_valid(), False)
         
+    def test_Pago_esquina(self):
+        form_data = {'nombre': '', 'cedula': '',
+                     'tipoTarjeta':'','digitos':'',
+                     'codigoSeguridad':'',
+                     'anoVencimiento':'','mesVencimiento':''}
+        form = PagoForm(data=form_data)
+        self.assertEqual(form.is_valid(), False)

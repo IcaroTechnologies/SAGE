@@ -14,8 +14,8 @@ class Estacionamiento (models.Model):
     formato_hora = RegexValidator(regex='^(0?[0-9]|1[0-9]|2[0-3])$', message="Formato de hora incorrecto, debe estar entre 0 y 23")
     formato_minuto =RegexValidator(regex='^[0-5]?[0-9]$', message="Formato de hora incorrecto, los minutos deben estar entre 0 y 59")
     
-    nombreEst = models.CharField(max_length=50, validators=[solo_letras])
-    nombreDueno = models.CharField(max_length=50)
+    nombreEst = models.CharField(max_length=50)
+    nombreDueno = models.CharField(max_length=50, validators=[solo_letras])
     direccionEst = models.CharField(max_length=50)
     correo_1 = models.CharField(max_length=50,validators=[EmailValidator()])
     correo_2 = models.CharField(max_length=50,blank=True, validators=[EmailValidator()])
