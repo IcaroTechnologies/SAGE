@@ -146,10 +146,11 @@ def confirmarPago(request):
             model = form.save(commit=False)
             model.codigoConfirmacion = generarCodigoConfirmacion()
             sol = reserva.objects.last()
+            model.inicio=sol.get_inicio()
+            model.fin=sol.get_fin()
             inicio=timedelta(hours=int(sol.get_horaInicio()), minutes=int(sol.get_minInicio()))
             fin=timedelta(hours=int(sol.get_horaFin()), minutes=int(sol.get_minFin()))
             model.monto = calcularMonto(inicio,fin)
-            model.reserva = sol
             model.save()
             return render (request, 'confirmacion.html',{'pago': model})
     else:
@@ -160,21 +161,18 @@ def confirmarPago(request):
 def generarCodigoConfirmacion():
     codigo = ''
     i=0
-    numeroDigitos=10
-    while i < numeroDigitos:
+    while i < 10:
         digito=random.randint(0,9)
         codigo = codigo + str(digito)
         i+=1
     return "SAGE"+codigo
 
 def calcularMonto(inicio,fin):
-    precio_por_hora = 8.772
-    segundos_de_una_hora = 3600
-    bloques = (fin-inicio).total_seconds() // segundos_de_una_hora
-    bloque_incompleto = int((fin-inicio).total_seconds()) - (bloques*segundos_de_una_hora)
+    seg = (fin-inicio).total_seconds() // 3600
+    bloque_incompleto = int((fin-inicio).total_seconds()) - (seg*3600)
     if bloque_incompleto > 0:
-        bloques+=1
-    return bloques * precio_por_hora
+        seg+=1
+    return seg * 8.772
     
 def reservas_registradas(request):
     entradas = pago.objects.all()

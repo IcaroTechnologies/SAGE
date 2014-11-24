@@ -66,13 +66,10 @@ class reserva (models.Model):
     
     def get_horaInicio(self):
         return self.horaInicio
-    
     def get_minInicio(self):
         return self.minInicio
-    
     def get_horaFin(self):
         return self.horaFin
-    
     def get_minFin(self):
         return self.minFin
 
@@ -90,7 +87,6 @@ class pago (models.Model):
     formato_codigo = RegexValidator(r'^[0-9]{3,4}$', 'El codigo de seguridad debe tener 3 o 4 dígitos')
     formato_tipo_tarjeta = RegexValidator(r'^(Visa|MasterCard|Express)$','Tipo de tarjeta incorrecto')
     
-    reserva = models.OneToOneField(reserva, default="1")
     codigoSeguridad = models.CharField(max_length=4,validators=[formato_codigo])
     nombre = models.CharField(max_length=50,validators=[solo_letras])
     cedula = models.CharField(max_length=10,validators=[formato_cedula])
@@ -99,6 +95,8 @@ class pago (models.Model):
     anoVencimiento = models.CharField(max_length=50, validators=[formato_ano])
     mesVencimiento = models.CharField(max_length=10,validators=[formato_mes])
     codigoConfirmacion = models.CharField(max_length=18,blank=True)
+    inicio = models.CharField(max_length=10,blank=True,default="NA")
+    fin = models.CharField(max_length=10,blank=True,default="NA")
     monto = models.DecimalField(max_digits=6,blank=True, decimal_places=2, default=0)
 
     def obtener_ultimos_4_digitos(self):
