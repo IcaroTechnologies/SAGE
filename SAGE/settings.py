@@ -19,7 +19,7 @@ if not os.path.exists(VAR_ROOT):
     os.mkdir(VAR_ROOT)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
+#Ubicacion de los archivos estaticos, imagenes y css
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
     '/Sist_SAGE/static/Sist_SAGE',
@@ -65,6 +65,7 @@ ROOT_URLCONF = 'SAGE.urls'
 
 WSGI_APPLICATION = 'SAGE.wsgi.application'
 
+#Ubicacion de los templates
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.

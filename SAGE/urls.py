@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'SAGE.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
+    #Redirecciona a views.py
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', home),
     url(r'^menu', menu ),

@@ -11,6 +11,7 @@ class EstacionamientoForm(ModelForm):
     class Meta: 
         model = Estacionamiento
         fields = '__all__'
+        #Modificacion de mensajes de error
         error_messages = {
             'nombreEst': {
                 'required':("Este campo es obligatorio"),
@@ -56,6 +57,7 @@ class ReservaForm(ModelForm):
     class Meta:
         model = reserva
         fields ='__all__'
+        #Modificacion de mensajes de error
         error_messages = {
             'horaInicio': {
                 'required':("Este campo es obligatorio"),
@@ -76,7 +78,9 @@ class PagoForm(ModelForm):
     class Meta:
         model = pago
         fields = ['nombre','cedula','tipoTarjeta','digitos','anoVencimiento','mesVencimiento','codigoSeguridad']
+        #Se excluyen ciertos datos en la verificacion del modelo debido a que son asignados despues de la validacion
         exclude = ('inicio','fin','monto','codigoConfirmacion','reserva')
+        #Modificacion de mensajes de error
         error_messages = {
             'nombre': {
                 'required':("Este campo es obligatorio"),

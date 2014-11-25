@@ -9,7 +9,9 @@ import decimal
 
 class Estacionamiento (models.Model):
     
+    #Valida que solo hayan letras y espacios en el nombre
     solo_letras= RegexValidator(r'^[a-zA-Z\ñ ]+$', 'Solo se permiten letras en este campo.')
+   
     formato_telefono = RegexValidator(regex='^0?(212|412|414|424|416|426)-?[0-9]{7}$',message="Formato Invalido, ej: 02121234567")
     formato_hora = RegexValidator(regex='^(0?[0-9]|1[0-9]|2[0-3])$', message="Formato de hora incorrecto, debe estar entre 0 y 23")
     formato_minuto =RegexValidator(regex='^[0-5]?[0-9]$', message="Formato de hora incorrecto, los minutos deben estar entre 0 y 59")
@@ -78,7 +80,9 @@ class reserva (models.Model):
     
 class pago (models.Model):
 
+    #Valida que solo hayan letras y espacios en el nombre
     solo_letras= RegexValidator(r'^[a-zA-Z\ñ]+ [a-zA-Z\ñ ]+$', 'Escriba su nombre y apellido, Solo se permiten letras en este campo.')
+    
     formato_cedula = RegexValidator(r'^[0-9]{,8}$', 'Formato incorrecto de la cédula, solo escriba los digitos de la cedula sin espacios ni otros caracteres.')
     formato_tarjeta = RegexValidator(r'^[0-9]{16}$', 'Formato incorrecto, deben ser 16 dígitos sin espacios')
     formato_ano = RegexValidator(r'^(201[4-9]|20[2-9][0-9])$', 'El año de expiración de la tarjeta debe ser mayor a la fecha actual')
@@ -86,7 +90,9 @@ class pago (models.Model):
     formato_codigo = RegexValidator(r'^[0-9]{3,4}$', 'El codigo de seguridad debe tener 3 o 4 dígitos')
     formato_tipo_tarjeta = RegexValidator(r'^(Visa|MasterCard|Express)$','Tipo de tarjeta incorrecto')
     
+    #Todo pago tiene una sola reserva
     reserva = models.OneToOneField(reserva, default="1")
+    
     codigoSeguridad = models.CharField(max_length=4,validators=[formato_codigo])
     nombre = models.CharField(max_length=50,validators=[solo_letras])
     cedula = models.CharField(max_length=10,validators=[formato_cedula])
@@ -103,6 +109,7 @@ class pago (models.Model):
         
     def obtener_iva(self):
         return round(((14*self.monto)/100),2)
+    
     
     def obtener_total(self):
         return round(decimal.Decimal(self.obtener_iva()),2) + round(decimal.Decimal(self.monto),2)

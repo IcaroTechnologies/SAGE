@@ -31,6 +31,8 @@ def crearEst(request):
             return render (request, 'exito.html',{'est': form})
     else:
         form = EstacionamientoForm()
+        
+    #En caso de que hayan errores
     args['form'] = form
 
     return render(request,'agregar.html',args)
@@ -39,12 +41,13 @@ def crearEst(request):
 
 def estacionamientos_registrados(request):
     entradas = Estacionamiento.objects.all()
+    #Se envia el objeto entradas al template
     return render(request,'estacionamientos_registrados.html', {'estacionamientos_registrados' : entradas})
 
 def datos_estacionamiento(request,id):
     estDatos=Estacionamiento.objects.get(pk=id)
+    #Se envia el objeto estDatos al template
     return render (request,'datos_estacionamiento.html', {'datos' : estDatos})
-
 
 def cliente (request):
     return render (request,'cliente.html')
@@ -63,8 +66,11 @@ def reservar (request):
             minFinReserva=request.POST.get('minFin',default=0)
             inicioReserva =timedelta(hours=int(horaIniReserva),minutes=int(minIniReserva))
             finReserva =timedelta(hours=int(horaFinReserva),minutes=int(minFinReserva))
+            #Stub de estacionamiento ficticio
             puestos=estacionamiento_ficticio()
+            #Se verifica si la solicitud es factible
             hayPuesto=verificarReserva(puestos,inicioReserva,finReserva)
+            #Se verifica que la reserva sea minimo de una hora
             if verificar_minimo_reserva(inicioReserva, finReserva):
                 if hayPuesto:
                     form.save()
@@ -76,20 +82,26 @@ def reservar (request):
                 
     else:
         form = ReservaForm()
+    #Si no es valido el formulario, se muestran los errores
     args['form']=form
     return render(request,'solicitar.html',args) 
     
 
 def verificarReserva(puestos, inicioReserva, finReserva):
     for puesto in puestos:
+        
+        #Caso donde no hayan reservas para un puesto
         if len(puesto)==0:
-            return True
+            return True  
+           
+        #Caso donde solo haya una reservapara un puesto
         elif len(puesto)==1:
             reserva=puesto[0]
             inicio=reserva[0]
             fin=reserva[1]
             if (inicioReserva > fin) | (finReserva < inicio):
                 return True
+        #Caso para 2 o mas reservas en un puesto
         else:
             i=0
             while i<len(puesto):
@@ -98,19 +110,21 @@ def verificarReserva(puestos, inicioReserva, finReserva):
                     segunda_reserva=puesto[i+1]
                     fin_bloque=segunda_reserva[0]
                 comienzo_bloque=primera_reserva[1]
+                #Se verifica la primera reserva del puesto
                 if i==0:
                     if finReserva < primera_reserva[0]:
                         return True
+                #Se verifica la ultima reserva del puesto
                 elif i==len(puesto)-1:
                     if inicioReserva > segunda_reserva[1]:
                         return True
                 else:
                     if (inicioReserva > comienzo_bloque) & (finReserva < fin_bloque):
                         return True
-                #Se revisa el primer puesto, caso borde
                 i+=1
     return False
             
+#Stub que simula un estacionamiento
 def estacionamiento_ficticio():    
     
     puesto1=[(timedelta(hours=12,minutes=30),timedelta(hours=14,minutes=30)),(timedelta(hours=15,minutes=30),timedelta(hours=17,minutes=30))]
@@ -125,7 +139,7 @@ def estacionamiento_ficticio():
     puestos=[puesto1,puesto2,puesto3,puesto4,puesto5,puesto6,puesto7,puesto8,puesto9]    
     return puestos
     
-
+#Reserva minimo de una hora
 def verificar_minimo_reserva(inicio,fin):
     
     hora=timedelta(hours=0,minutes=59,seconds=59)
@@ -149,6 +163,7 @@ def confirmarPago(request):
             inicio=timedelta(hours=int(sol.get_horaInicio()), minutes=int(sol.get_minInicio()))
             fin=timedelta(hours=int(sol.get_horaFin()), minutes=int(sol.get_minFin()))
             model.monto = calcularMonto(inicio,fin)
+            #Se asigna la reserva al pago
             model.reserva = sol
             model.save()
             return render (request, 'confirmacion.html',{'pago': model})
@@ -168,6 +183,7 @@ def generarCodigoConfirmacion():
     return "SAGE"+codigo
 
 def calcularMonto(inicio,fin):
+    #Se asumio un precio al azar
     precio_por_hora = 8.772
     segundos_de_una_hora = 3600
     bloques = (fin-inicio).total_seconds() // segundos_de_una_hora

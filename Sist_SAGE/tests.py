@@ -1,13 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf_8 -*-
 
+'''
+Created on Nov 12, 2014
+
+@author: luis
+'''
+
+
 from django.test import TestCase
 from SAGE.views import estacionamiento_ficticio, verificarReserva, verificar_minimo_reserva
 from datetime import timedelta
-from Sist_SAGE.forms import EstacionamientoForm, PagoForm, ReservaForm
-# Create your tests here.
+from Sist_SAGE.forms import EstacionamientoForm, PagoForm, ReservaForm# Create your tests here.
 
+'''Esta clase contiene todas las pruebas relacionadas
+ con los campos del formulario de un nuevo estacionamiento.'''
 class EstacionamientoFormTests(TestCase):
+    
     def test_Estacionamiento_campo_obligatorio_dueno_vacio(self):
         form_data = {'nombreEst': 'CC Plaza', 'nombreDueno': '',
                      'direccionEst':'CC Plaza','correo_1':'sage@gmail.com',
@@ -260,6 +269,8 @@ class EstacionamientoFormTests(TestCase):
         form = EstacionamientoForm(data=form_data)
         self.assertEqual(form.is_valid(), False)                            
 
+'''Esta clase contiene todas las pruebas relacionadas
+ con los campos del formulario de la solicitud de una reserva.'''
 class ReservaFormTests(TestCase):
     
     
@@ -318,7 +329,8 @@ class ReservaFormTests(TestCase):
             self.assertEqual(form.is_valid(), False) 
             
             
-
+'''Esta clase contiene todas las pruebas relacionadas
+ con la verificacion de la disponibilidad de una reserva'''
 class SolicitudReservaTests(TestCase):
     
     global _puestos
@@ -369,6 +381,8 @@ class SolicitudReservaTests(TestCase):
         self.assertFalse(verificarReserva(_puestos, inicioReserva, finReserva)) 
     
 
+'''pruebas de integracion del formulario de solicitud de
+ reserva y la disponibilidad de dicha solicitud.'''
 class IntegracionFormatoReservaYDisponibilidad(TestCase):
     
     
@@ -407,10 +421,10 @@ class IntegracionFormatoReservaYDisponibilidad(TestCase):
         inicio=timedelta(hours=int(model.horaInicio),minutes=int(model.minInicio))
         fin=timedelta(hours=int(model.horaFin),minutes=int(model.minFin))
         self.assertFalse(verificarReserva(estacionamiento_ficticio(), inicio, fin))
-        
-    
+      
+'''Esta clase contiene todas las pruebas relacionadas
+ con los campos del formulario de un pago correspondiente a una reserva.'''        
 class PagoFormTests(TestCase):
-    
     
     def test_Pago_campo_obligatorio_nombre_vacio(self):
         form_data = {'nombre': '', 'cedula': '21289762',
