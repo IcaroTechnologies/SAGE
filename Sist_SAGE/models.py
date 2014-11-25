@@ -10,7 +10,7 @@ import decimal
 class Estacionamiento (models.Model):
     
     #Valida que solo hayan letras y espacios en el nombre
-    solo_letras= RegexValidator(r'^[a-zA-Z\ñ ]+$', 'Solo se permiten letras en este campo.')
+    solo_letras= RegexValidator(r'^[a-zA-Z\ñ]+ [a-zA-Z\ñ ]+$', 'Escriba su nombre y apellido, Solo se permiten letras en este campo.')
    
     formato_telefono = RegexValidator(regex='^0?(212|412|414|424|416|426)-?[0-9]{7}$',message="Formato Invalido, ej: 02121234567")
     formato_hora = RegexValidator(regex='^(0?[0-9]|1[0-9]|2[0-3])$', message="Formato de hora incorrecto, debe estar entre 0 y 23")
