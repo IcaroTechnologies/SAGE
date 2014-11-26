@@ -184,12 +184,19 @@ def generarCodigoConfirmacion():
 
 def calcularMonto(inicio,fin):
     #Se asumio un precio al azar
+    dia_completo = timedelta(hours=24)
     precio_por_hora = 8.772
     segundos_de_una_hora = 3600
-    bloques = (fin-inicio).total_seconds() // segundos_de_una_hora
-    bloque_incompleto = int((fin-inicio).total_seconds()) - (bloques*segundos_de_una_hora)
+    if fin > inicio:
+        bloques = (fin-inicio).total_seconds() // segundos_de_una_hora
+        bloque_incompleto = int((fin-inicio).total_seconds()) - (bloques*segundos_de_una_hora)
+
+    else: 
+        bloques = (dia_completo -(inicio-fin)).total_seconds() // segundos_de_una_hora
+        bloque_incompleto = int((dia_completo-(fin-inicio)).total_seconds()) - (bloques*segundos_de_una_hora)
     if bloque_incompleto > 0:
-        bloques+=1
+       bloques+=1
+        
     return bloques * precio_por_hora
     
 def reservas_registradas(request):
